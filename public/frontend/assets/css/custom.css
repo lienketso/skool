@@ -1555,7 +1555,7 @@ input[type=file]::file-selector-button:hover {
     }
     .right-w-footer{
         text-align: right;
-        width: 68%;
+        width: 60%;
     }
 }
 @media(max-width: 767px){

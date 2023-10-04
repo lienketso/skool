@@ -39,7 +39,6 @@
             mess = '';
             $('.span_name').text('')
         }
-        alert(content);
         //ajax post
         if(mess.length <=0 ) {
             $.ajax({
@@ -266,7 +265,7 @@
                                                 <div class="modal-footer">
                                                     <input type="file" id="upload-input" style="display: none">
                                                     <div class="left-w-footer">
-{{--                                                        <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>--}}
+                                                        <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
 {{--                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn link"><i class="fa fa-link"></i></span>--}}
 {{--                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>--}}
                                                     </div>
