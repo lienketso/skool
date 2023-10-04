@@ -32,8 +32,8 @@ $config['authentication'] = function () {
 /*============================ License Key ============================================*/
 // https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-$config['licenseName'] = 'tvrstore.vn';
-$config['licenseKey']  = 'VMYMEWF5GQ8WMHCFN9FEEE9YAFTJL';
+$config['licenseName'] = 'triki.vn';
+$config['licenseKey']  = 'Q3Y358M68KMPK993UQW7ND1WVKPGR';
 
 /*============================ CKFinder Internal Directory ============================*/
 // https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_privateDir

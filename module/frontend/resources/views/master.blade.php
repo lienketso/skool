@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/bootstrap-4/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/css/custom.css')}}">
 
-    <link rel="icon" href="{{asset('frontend/assets/images/logo.png')}}">
+    <link rel="icon" href="{{upload_url($setting['site_logo'])}}">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
