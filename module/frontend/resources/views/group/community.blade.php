@@ -24,8 +24,9 @@
        $('.chuyenmuc-group').hide();
     });
     $('.btn-w-post').on('click',function (){
+        var editor = CKEDITOR.instances.editor1;
         let name = $('input[name="name"]').val();
-        let content = $('textarea[name="content"]').val();
+        let content = editor.getData();
         let category = $('input[name="category"]').val();
         let user_post = $('input[name="user_post"]').val();
         let group_id = {{$data->id}};
@@ -38,13 +39,7 @@
             mess = '';
             $('.span_name').text('')
         }
-        if(content.length<=0){
-            mess += 'err';
-            $('.span_desc').text('Vui lòng nhập nội dung của bạn');
-        }else{
-            mess = '';
-            $('.span_desc').text('');
-        }
+        alert(content);
         //ajax post
         if(mess.length <=0 ) {
             $.ajax({
