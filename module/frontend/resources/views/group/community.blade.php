@@ -555,10 +555,14 @@
                                             @endforeach
                                         @endif
                                     </div>
-                                    @if(auth()->check() && !$myMember->groups()->exists())
-                                    <div class="btn-edit-group red-icon">
-                                        <a href="{{route('frontend::group.join.get',$data->slug)}}"><i class="fa fa-heart"></i> Tham gia nhóm</a>
-                                    </div>
+                                    @if(auth()->check())
+                                        @if($myMember->groups()->exists())
+                                            <div class="btn-edit-group red-icon"></div>
+                                            @else
+                                            <div class="btn-edit-group red-icon">
+                                                <a href="{{route('frontend::group.join.get',$data->slug)}}"><i class="fa fa-heart"></i> Tham gia nhóm</a>
+                                            </div>
+                                        @endif
                                     @endif
 
                                 </div>
