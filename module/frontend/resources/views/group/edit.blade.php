@@ -37,6 +37,7 @@
                             {{csrf_field()}}
                             <div class="row">
                                 <div class="col-lg-12">
+
                                     <div class="banner-edit-group">
                                         <img src="{{($data->banner!='') ? upload_url($data->banner) : asset('frontend/assets/images/banner-image.png')}}">
                                     </div>

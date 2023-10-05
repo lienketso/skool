@@ -60,7 +60,10 @@ class GroupController extends BaseController
         $permissionType = 'member';
         if(!is_null($myMember)){
             $userGroup = GroupUser::where('user_id',$myMember->id)->where('group_id',$data->id)->first();
-            $permissionType = $userGroup->permission;
+            if(!is_null($userGroup) && $userGroup->permission!=''){
+                $permissionType = $userGroup->permission;
+            }
+            
         }
 
         return view('frontend::group.community',compact(
