@@ -556,7 +556,10 @@
                                         @endif
                                     </div>
                                     @if(auth()->check())
-                                        @if($myMember->groups()->exists())
+                                        @php
+                                            $userGroup = \Groups\Models\GroupUser::where('user_id',$myMember->id)->where('group_id',$data->id)->first();
+                                        @endphp
+                                        @if(!is_null($userGroup))
                                             <div class="btn-edit-group red-icon"></div>
                                             @else
                                             <div class="btn-edit-group red-icon">
