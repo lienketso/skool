@@ -4,6 +4,7 @@ namespace Frontend\Http\Controllers;
 
 use Barryvdh\Debugbar\Controllers\BaseController;
 use Barryvdh\Debugbar\LaravelDebugbar;
+use Groups\Models\CatPercent;
 use Groups\Repositories\GroupsRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,10 +31,26 @@ class ClassController extends BaseController
 
     public function getPostClassroom($id){
         $catProduct = $this->catp->find($id);
+        $childsCat = $this->catp->findWhere(['parent'=>$catProduct->id])->all();
+        $ids = [intval($id)];
+        if($childsCat){
+            foreach ($childsCat as $child){
+                $ids[] += $child->id;
+            }
+        }
         $data = $catProduct->getGroup;
-        $productFirst = $this->product->orderBy('id','ASC')->findWhere(['factory_id'=>$catProduct->group_id])->first();
+        $productFirst = $this->product->scopeQuery(function ($query) use ($ids,$catProduct){
+            return $query->where('factory_id',$catProduct->group_id)->whereIn('cat_id',$ids);
+        })->first();
 
-        return view('frontend::group.create-posts',compact('catProduct','data','productFirst'));
+        $markpercent = 0;
+        $catPercent = CatPercent::where('user_id',\auth()->id())->where('cat_id',$id)
+            ->where('group_id',$catProduct->group_id)->first();
+        if($catPercent){
+            $markpercent = $catPercent->mark_percent;
+        }
+
+        return view('frontend::group.create-posts',compact('catProduct','data','productFirst','markpercent'));
     }
 
     public function removeSet($id){

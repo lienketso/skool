@@ -27,10 +27,10 @@ $(document).ready(function()
                 dataType: "json",
                 data: {name,parent},
                 success: function (result) {
-                    let html = '<div class="item-create-set"> <p class="set-name">'+result.name+'</p> <a href="/post/get-create-module/'+result.id+'" class="add-more-module">+ Thêm module...</a> </div>';
+                    let html = '<div class="item-create-set"><p class="set-name">'+result.name+'<span class="edit-set" data-toggle="modal" data-target="#exampleModal'+result.id+'"><i class="fa fa-ellipsis-h"></i></span><span class="remove-set example-p-6" data-url="/post/get-remove-module/'+result.id+'"><i class="fa fa-times"></i></span></p> <a href="/post/get-create-module/'+result.id+'" class="add-more-module">+ Thêm module...</a> </div>';
                     $('#ListSet').append(html);
                     $('input[name="name"]').val('');
-
+                    window.location.reload();
                 },
                 error: function (data, status) {
                     $("#btnSubmit").html("Có lỗi xảy ra !");

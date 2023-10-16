@@ -315,6 +315,12 @@
                             @foreach($postInGroup as $p)
                             {{--item write--}}
                             <div class="item-list-write">
+                                @if(auth()->check() && $p->user_post==auth()->id())
+                                <div class="edit-post-write">
+                                    <a data-toggle="modal" data-target="#EditModal{{$p->id}}"><i class="fa fa-pencil-alt"></i></a>
+                                    @include('frontend::group.popup.edit-write',$p)
+                                </div>
+                                @endif
                                 <div class="header-item-write" data-toggle="modal" data-target="#DetailModal{{$p->id}}">
                                     <div class="avatar-write">
                                         <a href="#">
@@ -325,6 +331,8 @@
                                         <h4>{{$p->getUserPost->full_name}}</h4>
                                         <p>{{$p->created_at->diffForHumans()}} tại <a href="#">{{$p->chuyenmuc->name}}</a></p>
                                     </div>
+
+
                                 </div>
 
                                 <div class="description-write-item" data-toggle="modal" data-target="#DetailModal{{$p->id}}">

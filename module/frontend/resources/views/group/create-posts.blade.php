@@ -113,7 +113,11 @@
                             <div class="percent-khoahoc">
                                 <div class="progress-class">
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:70%">70%</div>
+                                        @if($markpercent==0)
+                                            <div class="progress-bar not-percent" style="width:100%">0%</div>
+                                        @else
+                                            <div class="progress-bar" style="width:{{$markpercent}}%">{{ceil($markpercent)}}%</div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -198,6 +202,8 @@
                                 <div class="content-detail-module">
                                     {!! $productFirst->content !!}
                                 </div>
+                            @else
+                                <p>Chưa có bài học nào được tạo !</p>
                             @endif
                         </div>
                     </div>

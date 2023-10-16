@@ -42,7 +42,7 @@
 </head>
 <body>
 
-@include('frontend::header')
+
 
 <main id="content">
     @yield('content')

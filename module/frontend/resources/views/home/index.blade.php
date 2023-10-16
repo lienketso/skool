@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-
+    @include('frontend::header')
     <div class="home-page-wrapper">
         <div class="container">
             <div class="home-content-skool">

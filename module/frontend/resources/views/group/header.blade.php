@@ -9,6 +9,11 @@
             }
         }
 @endphp
+
+<div class="banner-cover-group" style="background-image: url('{{ ($data->banner!='') ? upload_url($data->banner) : asset('frontend/assets/images/banner-image.png')}}')">
+
+</div>
+
 <div class="header-group">
     <div class="container">
         <div class="row align-items-center">

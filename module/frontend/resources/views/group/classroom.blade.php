@@ -76,11 +76,16 @@
                                 <div class="bao-desc-class">
                                     <div class="title-class">{{$d->name}}</div>
                                     <div class="desc-class">
-                                        {{$d->description}}
+                                        {{cut_string($d->description,80)}}
                                     </div>
                                     <div class="progress-class">
+
                                         <div class="progress">
-                                            <div class="progress-bar" style="width:{{$percent}}%">{{ceil($percent)}}%</div>
+                                            @if($percent==0)
+                                            <div class="progress-bar not-percent" style="width:100%">0%</div>
+                                            @else
+                                                <div class="progress-bar" style="width:{{$percent}}%">{{ceil($percent)}}%</div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="button-open-class">

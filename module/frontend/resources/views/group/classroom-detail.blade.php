@@ -16,6 +16,7 @@
                     _this.removeClass('done-read');
                     _this.addClass('reader');
                     _this.attr('title','Đã đọc');
+                    window.location.reload();
                 },
                 error: function (data, status) {
                     $("#done-read").html("Có lỗi xảy ra !");
