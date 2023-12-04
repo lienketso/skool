@@ -12,7 +12,27 @@
             height: '500px',
         });
     </script>
-
+    <script type="text/javascript">
+            // $('.show-input-youtube').hide();
+            // $('.show-input-vimeo').hide();
+            $('.videoType').on('change',function (e){
+                if(this.value==='youtube'){
+                    $('.show-input-youtube').show();
+                    $('.show-input-vimeo').hide();
+                }else{
+                    $('.show-input-youtube').hide();
+                    $('.show-input-vimeo').show();
+                }
+            });
+            let type = $('.videoType option:selected').val();
+            if(type==='youtube'){
+                $('.show-input-youtube').show();
+                $('.show-input-vimeo').hide();
+            }else if(type==='vimeo'){
+                $('.show-input-youtube').hide();
+                $('.show-input-vimeo').show();
+            }
+    </script>
 @endsection
 
 @section('content')
@@ -42,6 +62,22 @@
                                 <div class="form-group frm-create">
                                     <label>Tiêu đề <span>*</span></label>
                                     <input type="text" name="name" value="{{$productInfor->name}}" class="form-control" placeholder="Nhập tiêu đề của bài học">
+                                </div>
+                                <div class="form-group frm-create">
+                                    <label>Video bài học</label>
+                                    <div class="add-video-option">
+                                        <select name="video_type" class="form-control videoType">
+                                            <option value="">-Chọn loại video-</option>
+                                            <option value="youtube" {{($productInfor->video_type=='youtube') ? 'selected' : ''}}>Youtube</option>
+                                            <option value="vimeo" {{($productInfor->video_type=='vimeo') ? 'selected' : ''}}>Vimeo</option>
+                                        </select>
+                                    </div>
+                                    <div class="show-input-youtube">
+                                        <input type="text" name="youtube" value="{{$productInfor->youtube}}" placeholder="Link video youtube" class="form-control">
+                                    </div>
+                                    <div class="show-input-vimeo">
+                                        <input type="text" name="vimeo" value="{{$productInfor->vimeo}}" placeholder="Link video Vimeo" class="form-control">
+                                    </div>
                                 </div>
                                 <div class="form-group frm-create">
                                     <label>Nội dung <span>*</span></label>

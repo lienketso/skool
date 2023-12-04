@@ -1555,6 +1555,12 @@ input[type=file]::file-selector-button:hover {
     background-color: #ccc !important;
     color: #000;
 }
+.show-input-youtube, .show-input-vimeo{
+    padding-top: 10px;
+}
+.video-single-post{
+    padding: 20px 0;
+}
 @media(min-width: 768px){
     .popup-create-cost .modal-dialog{
         max-width: 775px;

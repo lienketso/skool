@@ -119,10 +119,10 @@ var CKBUILDER_CONFIG = {
 		'toolbar' : 1,
 		'undo' : 1,
 		'uploadimage' : 1,
-		'videodetector' : 1,
+		// 'videodetector' : 1,
 		'wysiwygarea' : 1,
-		'youtube' : 1,
-		'youtubebootstrap' : 1
+		// 'youtube' : 1,
+		// 'youtubebootstrap' : 1
 	},
 	languages : {
 		'en' : 1,

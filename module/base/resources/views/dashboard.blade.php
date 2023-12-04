@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 page-products">
                     <div class="panel">
-                        <a href="{{route('wadmin::category.index.get')}}">
+                        <a href="">
                         <div class="panel-heading">
                             <h4 class="panel-title">Danh mục</h4>
                         </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-3 col-md-2 page-messages">
                     <div class="panel">
-                        <a href="{{route('wadmin::contact.index.get')}}">
+                        <a href="">
                         <div class="panel-heading">
                             <h4 class="panel-title">Liên hệ</h4>
                         </div>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-5 col-md-2 page-reports">
                     <div class="panel">
-                        <a href="{{route('wadmin::page.index.get')}}">
+                        <a href="">
                         <div class="panel-heading">
                             <h4 class="panel-title">Trang tĩnh</h4>
                         </div>
@@ -114,7 +114,7 @@
                     <div class="panel">
                         <a href="#">
                         <div class="panel-heading">
-                            <h4 class="panel-title">Sản phẩm</h4>
+                            <h4 class="panel-title">Bài học</h4>
                         </div>
                         <div class="panel-body">
                             <div class="page-icon"><i class="icon ion-help-buoy"></i></div>
@@ -125,7 +125,7 @@
                 <div class="col-xs-4 col-sm-4 col-md-2 page-privacy">
                     <div class="panel">
                         <div class="panel-heading">
-                            <h4 class="panel-title">Danh mục sản phẩm</h4>
+                            <h4 class="panel-title">Danh mục bài học</h4>
                         </div>
                         <div class="panel-body">
                             <div class="page-icon"><i class="icon ion-android-lock"></i></div>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-2 page-settings">
                     <div class="panel">
-                        <a href="{{route('wadmin::setting.index.get')}}">
+                        <a href="#">
                         <div class="panel-heading">
                             <h4 class="panel-title">Cấu hình</h4>
                         </div>
@@ -167,7 +167,7 @@
                 <div class="col-sm-5 col-md-12 col-lg-6">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h4 class="panel-title">Sản phẩm xem nhiều</h4>
+                            <h4 class="panel-title">Bài học xem nhiều</h4>
                         </div>
                         <div class="panel-body">
 

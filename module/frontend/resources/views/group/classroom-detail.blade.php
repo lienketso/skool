@@ -78,14 +78,28 @@
                             <h2 class="title-single-class">
                                {{ ($productI) ? $productI->name : 'Null'}}
                                 @if(auth()->check())
-                                <span class="{{($productI && $productI->freeship==0) ? 'done-read' : 'reader'}}" data-id="{{($productI) ? $productI->id : 0}}"
+                                <span class="{{(!$catPercent && is_null($catPercent)) ? 'done-read' : 'reader'}}" data-id="{{($productI) ? $productI->id : 0}}"
                                       data-toggle="tooltip"
-                                      title="{{($productI && $productI->freeship==0) ? 'Đánh dấu đã đọc' : 'Đã đọc'}}"
+                                      title="{{(!$catPercent && is_null($catPercent)) ? 'Đánh dấu đã đọc' : 'Đã đọc'}}"
                                       data-url="{{route('ajax-mark-as-read-module')}}"
                                 ><i class="fa fa-check-circle"></i></span>
                                 @endif
                             </h2>
                             <div class="detail-class-post">
+                                <div class="video-single-post">
+                                    @if($productI->video_type=='youtube')
+                                        <iframe width="100%" height="400"
+                                                src="{!! parseVideos($productI->youtube) !!}?si=TNUHpReROl_eJVci&amp;controls=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                                                allowfullscreen></iframe>
+                                    @else
+                                        <iframe src="{!! parseVideos($productI->vimeo) !!}"
+                                                width="100%" height="400" frameborder="0"
+                                                allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+                                    @endif
+                                </div>
                                 {!! ($productI) ? $productI->content : 'Null' !!}
                             </div>
                         </div>

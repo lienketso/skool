@@ -8,6 +8,17 @@
             filebrowserUploadUrl: '{{route('ckeditor.upload',['_token' => csrf_token() ])}}', //route dashboard/upload
             filebrowserUploadMethod: 'form',
             height: '300px',
+            removePlugins: "exportpdf",
+        });
+        $(function(){
+            $('.editor').each(function(e){
+                CKEDITOR.replace( this.id, {
+                    filebrowserUploadUrl: '{{route('ckeditor.upload',['_token' => csrf_token() ])}}', //route dashboard/upload
+                    filebrowserUploadMethod: 'form',
+                    height: '300px',
+                    removePlugins: "exportpdf",
+                });
+            });
         });
     </script>
 <script type="text/javascript">
@@ -22,6 +33,12 @@
        $('input[name="category"]').val(id);
        $('#choosenCat').html(name);
        $('.chuyenmuc-group').hide();
+    });
+    $('.catPost').on('click',function(e){
+        e.preventDefault();
+        let _this = $(e.currentTarget);
+        let id = _this.attr('data-id');
+        $('.cm-'+id).toggle();
     });
     $('.btn-w-post').on('click',function (){
         var editor = CKEDITOR.instances.editor1;
@@ -233,6 +250,8 @@
                                     <div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
+                                                <form method="post" enctype="multipart/form-data">
+                                                    {{csrf_field()}}
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">
                                                 <span class="img-w-avatar">
@@ -291,7 +310,11 @@
                                                     </div>
 
                                                 </div>
+
+                                                </form>
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

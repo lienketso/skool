@@ -200,6 +200,22 @@
                             @if($productFirst)
                                 <h2 class="title-module-single">{{$productFirst->name}}</h2>
                                 <div class="content-detail-module">
+
+                                    <div class="video-single-post">
+                                        @if($productFirst->video_type=='youtube')
+                                        <iframe width="100%" height="400"
+                                                src="{!! parseVideos($productFirst->youtube) !!}?si=TNUHpReROl_eJVci&amp;controls=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                                                allowfullscreen></iframe>
+                                            @else
+                                            <iframe src="{!! parseVideos($productFirst->vimeo) !!}"
+                                                    width="100%" height="400" frameborder="0"
+                                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+                                        @endif
+                                    </div>
+
                                     {!! $productFirst->content !!}
                                 </div>
                             @else

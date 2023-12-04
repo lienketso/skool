@@ -190,6 +190,78 @@ if(!function_exists('thousand_format')){
         return $number;
     }
 }
+function convertYoutube($string) {
+    return preg_replace(
+        "/[a-zA-Z\/\/:\.]*youtu(?:be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)(?:[&?\/]t=)?(\d*)(?:[a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+        "<iframe allowscriptaccess=\"never\" controls=\"0\" frameborder=\"0\" width=\"100%\" height=\"400\" src=\"https://www.youtube.com/embed/$1?start=$2\" allowfullscreen></iframe>",
+        $string
+    );
+}
+
+
+function parseVideos($videoString = null)
+{
+    if (strpos($videoString, 'youtube.com/embed') !== FALSE)
+    {
+        return $videoString;
+    }
+    if (strpos($videoString, 'iframe') !== FALSE)
+    {
+        // retrieve the video url
+        $anchorRegex = '/src="(.*)?"/isU';
+        $results = array();
+        if (preg_match($anchorRegex, $video, $results))
+        {
+            $link = trim($results[1]);
+        }
+    }
+    else
+    {
+        // we already have a url
+        $link = $videoString;
+    }
+    if (strpos($link, 'youtube.com') !== FALSE) {
+        preg_match(
+            '/[\\?\\&]v=([^\\?\\&]+)/',
+            $link,
+            $matches
+        );
+        //the ID of the YouTube URL: x6qe_kVaBpg
+        $id = $matches[1];
+        return '//www.youtube.com/embed/'.$id;
+    }
+    else if (strpos($link, 'youtu.be') !== FALSE) {
+        preg_match(
+            '/youtu.be\/([a-zA-Z0-9_]+)\??/i',
+            $link,
+            $matches
+        );
+        $id = $matches[1];
+        return '//www.youtube.com/embed/'.$id;
+    }
+    else if (strpos($link, 'player.vimeo.com') !== FALSE) {
+        // works on:
+        // http://player.vimeo.com/video/37985580?title=0&byline=0&portrait=0
+        $videoIdRegex = '/player.vimeo.com\/video\/([0-9]+)\??/i';
+        preg_match($videoIdRegex, $link, $matches);
+        $id = $matches[1];
+        return '//player.vimeo.com/video/'.$id;
+    }
+    else if (strpos($link, 'vimeo.com') !== FALSE) {
+        //extract the ID
+        preg_match(
+            '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/',
+            $link,
+            $matches
+        );
+        //the ID of the Vimeo URL: 71673549
+        $id = $matches[2];
+        return '//player.vimeo.com/video/'.$id;
+    }
+    return $videoString;
+    // return data
+}
+
 
 
 

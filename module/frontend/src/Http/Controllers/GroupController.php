@@ -96,10 +96,11 @@ class GroupController extends BaseController
         $markpercent = 0;
         $catPercent = CatPercent::where('user_id',\auth()->id())->where('cat_id',$id)
             ->where('group_id',$infor->group_id)->first();
+
         if($catPercent){
             $markpercent = $catPercent->mark_percent;
         }
-        return view('frontend::group.classroom-detail',compact('data','infor','productI','markpercent'));
+        return view('frontend::group.classroom-detail',compact('data','infor','productI','markpercent','catPercent'));
     }
 
     public function createRoom(){

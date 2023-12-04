@@ -21,8 +21,8 @@
                             <span class="span_name"></span>
                         </div>
                         <div class="form-group frm-w-textarea">
-                            <textarea name="content" rows="4" id="editor1" placeholder="Hãy viết điều gì đó..."
-                                                              class="txt-w-title area-w">{!! $p->content !!}</textarea>
+                            <textarea name="content" rows="4" id="edit{{$p->id}}" placeholder="Hãy viết điều gì đó..."
+                                                              class="editor txt-w-title area-w">{!! $p->content !!}</textarea>
                             <span class="span_desc"></span>
                         </div>
                         <div class="form-group frm-w">
@@ -39,8 +39,8 @@
                     </div>
                     <div class="center-w-footer">
                         <input type="hidden" name="category" value="{{$categories[0]->id}}">
-                        <span id="choosenCat">Chọn chuyên mục <i class="fa fa-caret-down"></i></span>
-                        <div class="chuyenmuc-group">
+                        <span id="" class="catPost" data-id="{{$p->id}}">Chọn chuyên mục <i class="fa fa-caret-down"></i></span>
+                        <div class="chuyenmuc-group cm-{{$p->id}}">
                             <ul>
                                 @foreach($categories as $cat)
                                     <li class="item-chuyenmuc" data-name="{{$cat->name}}" data-id="{{$cat->id}}">

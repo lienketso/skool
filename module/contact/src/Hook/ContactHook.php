@@ -4,6 +4,6 @@ namespace Contact\Hook;
 class ContactHook
 {
     public function handle(){
-        echo view('wadmin-contact::blocks.sidebar');
+//        echo view('wadmin-contact::blocks.sidebar');
     }
 }

@@ -12,6 +12,19 @@
             height: '500px',
         });
     </script>
+    <script type="text/javascript">
+        $('.show-input-youtube').hide();
+        $('.show-input-vimeo').hide();
+        $('.videoType').on('change',function (e){
+            if(this.value==='youtube'){
+                $('.show-input-youtube').show();
+                $('.show-input-vimeo').hide();
+            }else{
+                $('.show-input-youtube').hide();
+                $('.show-input-vimeo').show();
+            }
+        });
+    </script>
 
 @endsection
 
@@ -42,6 +55,22 @@
                                 <div class="form-group frm-create">
                                     <label>Tiêu đề <span>*</span></label>
                                     <input type="text" name="name" class="form-control" placeholder="Nhập tiêu đề của bài học">
+                                </div>
+                                <div class="form-group frm-create">
+                                    <label>Video bài học</label>
+                                    <div class="add-video-option">
+                                        <select name="video_type" class="form-control videoType">
+                                            <option value="">-Chọn loại video-</option>
+                                            <option value="youtube">Youtube</option>
+                                            <option value="vimeo" >Vimeo</option>
+                                        </select>
+                                    </div>
+                                    <div class="show-input-youtube">
+                                        <input type="text" name="youtube" value="" placeholder="Link video youtube" class="form-control">
+                                    </div>
+                                    <div class="show-input-vimeo">
+                                        <input type="text" name="vimeo" value="" placeholder="Link video Vimeo" class="form-control">
+                                    </div>
                                 </div>
                                 <div class="form-group frm-create">
                                     <label>Nội dung <span>*</span></label>
