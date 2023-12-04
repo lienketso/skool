@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Post\Models\Post;
 use Post\Repositories\PostRepository;
+use Product\Models\ProductMark;
 use Product\Repositories\CatproductRepository;
 use Product\Repositories\ProductRepository;
 use Users\Models\Users;
@@ -100,7 +101,11 @@ class GroupController extends BaseController
         if($catPercent){
             $markpercent = $catPercent->mark_percent;
         }
-        return view('frontend::group.classroom-detail',compact('data','infor','productI','markpercent','catPercent'));
+        //check đã đọc
+        $marked = ProductMark::query()->where('product_id',$productI->id)->where('user_id',\auth()->id())->first();
+
+
+        return view('frontend::group.classroom-detail',compact('data','infor','productI','markpercent','marked'));
     }
 
     public function createRoom(){

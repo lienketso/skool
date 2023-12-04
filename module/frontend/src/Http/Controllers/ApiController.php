@@ -14,6 +14,7 @@ use Post\Repositories\CommentsRepository;
 use Post\Repositories\PostRepository;
 use Illuminate\Support\Facades\File;
 use Product\Models\Catproduct;
+use Product\Models\ProductMark;
 use Product\Repositories\CatproductRepository;
 use Product\Repositories\ProductRepository;
 
@@ -182,10 +183,19 @@ class ApiController extends BaseController
             $updatePercent = (100/$countProduct);
             $user = \auth()->id();
 
+
+
+            //update bảng product_mark sử dụng check đã đọc bài viết
+            $marked = ProductMark::firstOrNew(['product_id'=>$id,'user_id'=>$user,'cat_id'=>$catProduct->parent]);
+            $marked->save();
             //get cat name and create or update cat percent
 
+            $countMarked = ProductMark::query()->where('cat_id',$catProduct->parent)->where('user_id',$user)->count();
+            $countPercent = ($countMarked*$updatePercent);
+
+
             $firstOrCreate = CatPercent::firstOrNew(['cat_id'=>$catProduct->parent,'user_id'=>$user,'group_id'=>$product->factory_id]);
-            $firstOrCreate->mark_percent = $firstOrCreate->mark_percent + $updatePercent;
+            $firstOrCreate->mark_percent = $countPercent;
             $firstOrCreate->save();
 
             return response()->json($product);

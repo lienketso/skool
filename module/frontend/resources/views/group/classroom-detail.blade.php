@@ -40,7 +40,7 @@
                             <h1 class="title-class-page">{{$infor->name}}</h1>
                             <div class="progress-class">
                                 <div class="progress">
-                                    <div class="progress-bar" style="width:{{$markpercent}}%">{{ceil($markpercent)}}%</div>
+                                    <div class="progress-bar" style="width:{{($markpercent==0) ? 0 : ceil($markpercent)}}%">{{ ($markpercent==0) ? 0 : ceil($markpercent)}}%</div>
                                 </div>
                             </div>
 
@@ -78,9 +78,9 @@
                             <h2 class="title-single-class">
                                {{ ($productI) ? $productI->name : 'Null'}}
                                 @if(auth()->check())
-                                <span class="{{(!$catPercent && is_null($catPercent)) ? 'done-read' : 'reader'}}" data-id="{{($productI) ? $productI->id : 0}}"
+                                <span class="{{(!$marked && is_null($marked)) ? 'done-read' : 'reader'}}" data-id="{{($productI) ? $productI->id : 0}}"
                                       data-toggle="tooltip"
-                                      title="{{(!$catPercent && is_null($catPercent)) ? 'Đánh dấu đã đọc' : 'Đã đọc'}}"
+                                      title="{{(!$marked && is_null($marked)) ? 'Đánh dấu đã đọc' : 'Đã đọc'}}"
                                       data-url="{{route('ajax-mark-as-read-module')}}"
                                 ><i class="fa fa-check-circle"></i></span>
                                 @endif
