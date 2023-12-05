@@ -118,7 +118,7 @@ class ApiController extends BaseController
 
     public function apiEditCategoryParent(Request $request){
         $id = $request->id;
-
+        $user = $request->users;
         $validatedData = $request->validate([
             'name' => 'required'
         ], [
@@ -128,10 +128,13 @@ class ApiController extends BaseController
             $catInfor = $this->cat->find($id);
         $update = [
             'name'=>$request->name,
+            'who'=>$request->who,
             'description'=>$request->description,
         ];
-
         $data = $this->cat->update($update,$id);
+        if($user){
+            $data->userPivot()->sync($user);
+        }
         return response()->json($data);
         }catch (\Exception $e){
             return response()->json($e->getMessage());

@@ -50,7 +50,15 @@ class ClassController extends BaseController
             $markpercent = $catPercent->mark_percent;
         }
 
-        return view('frontend::group.create-posts',compact('catProduct','data','productFirst','markpercent'));
+        $listUserGroup = $data->users;
+        $currentUser = $catProduct->userPivot()->get()->toArray();
+
+        $args = [];
+        foreach ($currentUser as $perm) {
+            $args[] = $perm['id'];
+        }
+        $arrCurrentUser = $args;
+        return view('frontend::group.create-posts',compact('catProduct','data','productFirst','markpercent','listUserGroup','arrCurrentUser'));
     }
 
     public function removeSet($id){

@@ -85,7 +85,9 @@ class GroupController extends BaseController
             return $e->where('parent',0)->where('group_id',$data->id);
         })->paginate(12);
 
-        return view('frontend::group.classroom',compact('data','listClass'));
+        $listUserGroup = $data->users;
+
+        return view('frontend::group.classroom',compact('data','listClass','listUserGroup'));
     }
     public function classroomDetail($id, Request $request){
         $infor = $this->catp->find($id);
@@ -103,9 +105,16 @@ class GroupController extends BaseController
         }
         //check đã đọc
         $marked = ProductMark::query()->where('product_id',$productI->id)->where('user_id',\auth()->id())->first();
+        //lấy ra user đã được chấp thuận
+        $arrUsersChecked = [];
+        if($infor->userPivot()->exists()){
+            $userChecked = $infor->userPivot;
+            foreach($userChecked as $c){
+                $arrUsersChecked[] = $c->id;
+            }
+        }
 
-
-        return view('frontend::group.classroom-detail',compact('data','infor','productI','markpercent','marked'));
+        return view('frontend::group.classroom-detail',compact('data','infor','productI','markpercent','marked','arrUsersChecked'));
     }
 
     public function createRoom(){
@@ -207,6 +216,9 @@ class GroupController extends BaseController
         }
         try {
             $create = $this->catp->create($input);
+            if($request->who=='2' && !is_null($request->user_id)){
+                $create->userPivot()->sync($request->user_id);
+            }
             return redirect()->route('frontend::create.post.get',$create->id);
         }catch (\Exception $e){
             return redirect()->back()->with(['exception'=>$e->getMessage()]);

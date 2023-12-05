@@ -83,8 +83,11 @@ $(document).ready(function()
        let url = _this.attr('data-url');
        let id = _this.attr('data-id');
        let name = $('.catname_'+id).val();
+       let who = $('select[name="who"]').val();
        let description = $('textarea[name="description"]').val();
-
+       var users = $("input[name='user_id[]']:checkbox:checked").map(function(){
+            return $(this).val();
+        }).get();
         if(name.length<=0){
             mess += 'err';
             $('#errorName').text('Bạn chưa nhập tên khóa học');
@@ -98,7 +101,7 @@ $(document).ready(function()
                 type: "POST",
                 url: url,
                 dataType: "json",
-                data: {name,id,description},
+                data: {name,id,description,who,users},
                 success: function (result) {
                     $('#SetParentName').text(result.name);
                     $('#categoryModal').modal("hide");

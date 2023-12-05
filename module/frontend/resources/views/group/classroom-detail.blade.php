@@ -1,5 +1,10 @@
 @extends('frontend::master')
-
+@section('css')
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+@endsection
+@section('js')
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+@endsection
 @section('js-init')
     <script type="text/javascript">
         $('.done-read').on('click',function (e){
@@ -25,6 +30,24 @@
             });
 
         });
+
+
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            const player = new Plyr('#player', {
+                type: 'youtube',
+                videoId: 'i4oAPEKcC9w',
+                controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume'],
+                iconUrl: null,
+                tooltips: {
+                    controls: false,
+                    seek: false
+                }
+            });
+        });
+
+
     </script>
 @endsection
 
@@ -40,7 +63,11 @@
                             <h1 class="title-class-page">{{$infor->name}}</h1>
                             <div class="progress-class">
                                 <div class="progress">
-                                    <div class="progress-bar" style="width:{{($markpercent==0) ? 0 : ceil($markpercent)}}%">{{ ($markpercent==0) ? 0 : ceil($markpercent)}}%</div>
+                                    @if($markpercent==0)
+                                        <div class="progress-bar not-percent" style="width:100%">0%</div>
+                                    @else
+                                        <div class="progress-bar" style="width:{{($markpercent==0) ? 0 : ceil($markpercent)}}%">{{ceil($markpercent)}}%</div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -77,7 +104,7 @@
                         <div class="content-single-class">
                             <h2 class="title-single-class">
                                {{ ($productI) ? $productI->name : 'Null'}}
-                                @if(auth()->check())
+                                @if(in_array(auth()->id(),$arrUsersChecked) || $infor->who==1)
                                 <span class="{{(!$marked && is_null($marked)) ? 'done-read' : 'reader'}}" data-id="{{($productI) ? $productI->id : 0}}"
                                       data-toggle="tooltip"
                                       title="{{(!$marked && is_null($marked)) ? 'Đánh dấu đã đọc' : 'Đã đọc'}}"
@@ -86,14 +113,17 @@
                                 @endif
                             </h2>
                             <div class="detail-class-post">
+                                @if(in_array(auth()->id(),$arrUsersChecked) || $infor->who==1)
                                 <div class="video-single-post">
-                                    @if($productI->video_type=='youtube')
+{{--                                    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></div>--}}
+                                    @if($productI->video_type=='youtube' && $productI->youtube!='')
                                         <iframe width="100%" height="400"
                                                 src="{!! parseVideos($productI->youtube) !!}?si=TNUHpReROl_eJVci&amp;controls=0"
                                                 title="YouTube video player" frameborder="0"
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
                                                 allowfullscreen></iframe>
-                                    @else
+                                    @endif
+                                    @if($productI->video_type=='vimeo' && $productI->vimeo!='')
                                         <iframe src="{!! parseVideos($productI->vimeo) !!}"
                                                 width="100%" height="400" frameborder="0"
                                                 allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
@@ -101,6 +131,16 @@
                                     @endif
                                 </div>
                                 {!! ($productI) ? $productI->content : 'Null' !!}
+                                @else
+                                    <div class="lock-single-page">
+                                        <div class="item-lock-single-page">
+                                            <div class="class-con-lock">
+                                                <p><i class="fa fa-user-lock"></i></p>
+                                                <h4>Bạn không có quyền xem bài học này</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -10,8 +10,12 @@
         }
 @endphp
 
-<div class="banner-cover-group" style="background-image: url('{{ ($data->banner!='') ? upload_url($data->banner) : asset('frontend/assets/images/banner-image.png')}}')">
-
+<div class="header-top-top" style="background: #F8F7F5">
+<div class="container">
+    <div class="banner-cover-group"
+         style="background-image: url('{{ ($data->banner!='') ? upload_url($data->banner) : asset('frontend/assets/images/banner-image.png')}}')">
+    </div>
+</div>
 </div>
 
 <div class="header-group">

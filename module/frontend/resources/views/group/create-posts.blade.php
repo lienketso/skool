@@ -36,6 +36,22 @@
             });
         });
 
+        //
+
+        $('.selectWho').on('change',function (e){
+           if(this.value=='2'){
+               $('.member-list-who').show();
+           }else{
+               $('.member-list-who').hide();
+           }
+        });
+        let selectedWho = $('.selectWho option:selected').val();
+        if(selectedWho==='2'){
+            $('.member-list-who').show();
+        }
+        else {
+            $('.member-list-who').hide();
+        }
     </script>
 @endsection
 @section('content')
@@ -66,11 +82,24 @@
                                                 <textarea rows="4" name="description" class="form-control" placeholder="Mô tả khóa học">{{$catProduct->description}}</textarea>
                                             </div>
                                             <div class="form-group">
-                                                <select name="who" class="form-control">
-                                                    <option value="1">Tất cả thành viên có thể xem</option>
-                                                    <option value="2">Chỉ một số thành viên có thể xem</option>
-                                                    <option value="3">Thành viên có thành tích cao</option>
+                                                <select name="who" class="form-control selectWho">
+                                                    <option value="1" {{($catProduct->who==1) ? 'selected' : ''}}>Tất cả thành viên có thể xem</option>
+                                                    <option value="2"{{($catProduct->who==2) ? 'selected' : ''}}>Chỉ một số thành viên có thể xem</option>
+                                                    <option value="3" {{($catProduct->who==3) ? 'selected' : ''}}>Thành viên có thành tích cao</option>
                                                 </select>
+                                                <div class="member-list-who">
+                                                    <ul>
+                                                        @foreach($listUserGroup as $d)
+                                                        <li><input
+                                                                type="checkbox"
+                                                                name="user_id[]"
+                                                                id="user{{$d->id}}"
+                                                                {!! (in_array($d->id, $arrCurrentUser)) ? 'checked' : '' !!}
+                                                                value="{{$d->id}}"> <label for="user{{$d->id}}" >{{$d->full_name}} - {{$d->phone}}</label>
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="img-category-set">

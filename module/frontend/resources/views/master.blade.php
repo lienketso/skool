@@ -67,6 +67,7 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
 </script>
 
 @yield("css")

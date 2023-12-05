@@ -4,6 +4,7 @@
 namespace Product\Models;
 
 
+use App\User;
 use Groups\Models\CatPercent;
 use Groups\Models\Groups;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Catproduct extends Model
 {
     protected $table='catproduct';
-    protected $fillable = ['name','slug','description','parent','thumbnail','background','meta_title','meta_desc','sort_order','display','status','lang_code','group_id'];
+    protected $fillable = ['name','slug','description','parent','thumbnail','background','meta_title','meta_desc','sort_order','display','status','lang_code','group_id','who'];
 
     public function setSlugAttribute($value)
     {
@@ -49,6 +50,9 @@ class Catproduct extends Model
         return $this->belongsTo(Groups::class,'group_id','id');
     }
 
+    public function userPivot(){
+        return $this->belongsToMany(User::class,'catproduct_user','cat_id','user_id');
+    }
 
 
 }
