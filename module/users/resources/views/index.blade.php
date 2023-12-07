@@ -15,7 +15,7 @@
                 <div class="row">
                     <form method="get">
                         <div class="col-sm-5">
-                            <input type="text" name="name" placeholder="Tên hoặc email" class="form-control">
+                            <input type="text" name="name" placeholder="Tên, Email, Mã tài khoản" class="form-control">
                         </div>
                         <div class="col-sm-2">
                             <button type="submit" class="btn btn-info">Tìm kiếm</button>
@@ -49,6 +49,7 @@
                         <th>Avatar</th>
                         <th>Email</th>
                         <th>Họ tên</th>
+                        <th>Loại tài khoản</th>
                         <th>Quyền</th>
                         <th class="">Ngày tạo</th>
                         <th class="">Trạng thái</th>
@@ -64,7 +65,16 @@
                                 </div>
                             </td>
                             <td>{{$d->email}}</td>
-                            <td>{{$d->full_name}}</td>
+                            <td>{{$d->full_name}} - <strong>{{$d->code}}</strong></td>
+                            <td>
+                                @if($d->level=='basic')
+                                    <span class="acc-basic">Tài khoản thường : </span>
+                                    <a class="plus-acc active-user-premium" data-url="{{route('active-user-premium',$d->id)}}"><i class="fa fa-diamond"></i> Nâng cấp</a>
+                                @else
+                                    <span class="acc-premium"><i class="fa fa-check-circle"></i> Tài khoản premium</span>
+                                    <a class="cancel-premium active-user-premium" data-url="{{route('cancel-user-premium',$d->id)}}"><i class="fa fa-ban"></i> Về thường</a>
+                                @endif
+                            </td>
                             <td>{{$d->getRole()}}</td>
                             <td>{{$d->created_at}}</td>
                             <td><a href="#" class="btn btn-sm btn-success radius-30">Đã kích hoạt</a></td>

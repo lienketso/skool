@@ -3,29 +3,67 @@
     <section class="profile-home">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-triki">
+                        <a href="{{route('frontend::home')}}"><i class="fa fa-home"></i> Trang chủ</a> / <span>Profile</span>
+                    </div>
+                </div>
                 <div class="col-lg-8">
                     <div class="content-profile">
-                        <h5>Nhóm đã tham gia</h5>
-                        <div class="list-membership">
-                            @if($userLogin->groups()->exists())
-                                @foreach($userLogin->groups as $d)
-                            <div class="item-membership">
-                                <a href="{{route('frontend::group.index.get',$d->slug)}}">
-                                    <div class="ava-group-icon">
-                                        <span class="ava-list-membership"
-                                              style="background-image: url('{{ ($d->thumbnail!='') ? upload_url($d->thumbnail) : asset('frontend/assets/images/avatar.png')}}')"></span>
-                                    </div>
-                                    <div class="membership-name-list">
-                                        <p>{{$d->name}}</p>
-                                        <span>{{($d->group_type=='public') ? 'Công khai' : 'Riêng tư'}} • {{thousand_format($d->users->count())}} thành viên</span>
-                                    </div>
-                                </a>
+                        <div class="info-pro-group">
+                            <h5>Nhóm đã tạo</h5>
+                            <div class="list-membership">
+                                @if($myGroup)
+                                    @foreach($myGroup as $d)
+                                        <div class="item-membership">
+
+                                            <a href="{{route('frontend::group.index.get',$d->slug)}}">
+                                                <div class="ava-group-icon">
+                                            <span class="ava-list-membership"
+                                                  style="background-image: url('{{ ($d->thumbnail!='') ? upload_url($d->thumbnail) : asset('frontend/assets/images/avatar.png')}}')"></span>
+                                                </div>
+                                                <div class="membership-name-list">
+                                                    <p>{{$d->name}}</p>
+                                                    <span>{{($d->group_type=='public') ? 'Công khai' : 'Riêng tư'}} • {{thousand_format($d->users->count())}} thành viên</span>
+
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    @endforeach
+                                @endif
 
                             </div>
-                                @endforeach
-                            @endif
+
+                            <div class="btn-create-group">
+                                <a href="{{route('frontend::group.create-room.get')}}"><i class="fa fa-plus-circle"></i> Tạo nhóm mới</a>
+                            </div>
 
                         </div>
+                        <div class="info-pro-group">
+                            <h5>Nhóm đã tham gia</h5>
+                            <div class="list-membership">
+                                @if($userLogin->groups()->exists())
+                                    @foreach($userLogin->groups as $d)
+                                <div class="item-membership">
+                                    <a href="{{route('frontend::group.index.get',$d->slug)}}">
+                                        <div class="ava-group-icon">
+                                            <span class="ava-list-membership"
+                                                  style="background-image: url('{{ ($d->thumbnail!='') ? upload_url($d->thumbnail) : asset('frontend/assets/images/avatar.png')}}')"></span>
+                                        </div>
+                                        <div class="membership-name-list">
+                                            <p>{{$d->name}}</p>
+                                            <span>{{($d->group_type=='public') ? 'Công khai' : 'Riêng tư'}} • {{thousand_format($d->users->count())}} thành viên</span>
+                                        </div>
+                                    </a>
+
+                                </div>
+                                    @endforeach
+                                @endif
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-4">

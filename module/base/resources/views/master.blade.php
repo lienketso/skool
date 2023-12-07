@@ -106,6 +106,33 @@
         });
     });
 
+    $('.active-user-premium').on('click', function(e){
+        e.preventDefault();
+        let _this = $(e.currentTarget);
+        let url = _this.attr('data-url');
+        $.confirm({
+            title: 'Xác nhận thay đổi',
+            content: 'Bạn có chắc chắn muốn thay đổi loại tài khoản không',
+            autoClose: 'cancelAction|10000',
+            escapeKey: 'cancelAction',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-red',
+                    text: 'Thay đổi tài khoản',
+                    action: function(){
+                        location.href = url;
+                    }
+                },
+                cancelAction: {
+                    text: 'Hủy',
+                    action: function(){
+                        $.alert('Đã hủy thay đổi loại tài khoản !');
+                    }
+                }
+            }
+        });
+    });
+
 </script>
 
 <script type="text/javascript">

@@ -32,7 +32,8 @@ class UsersController extends BaseController
             })->paginate(1);
         }elseif($name){
             $data = $this->users->scopeQuery(function($e) use ($name){
-                return $e->orderBy('id','desc')->where('full_name','LIKE','%'.$name.'%')->orWhere('email',$name);
+                return $e->orderBy('id','desc')->where('full_name','LIKE','%'.$name.'%')
+                    ->orWhere('email',$name)->orWhere('code',$name);
             })->paginate(10);
         }
         else{
@@ -129,6 +130,27 @@ class UsersController extends BaseController
                 ->with('edit','Bạn vừa cập nhật thông tin tài khoản');
         }catch (\Exception $e){
             return redirect()->back()->withErrors(config('messages.error'));
+        }
+    }
+
+    public function activePremium($id){
+        try {
+            $user = $this->users->find($id);
+            $user->level = 'premium';
+            $user->save();
+            return redirect()->back()->with(['edit'=>'Nâng cấp tài khoản thành công']);
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
+    public function cancelPremium($id){
+        try {
+            $user = $this->users->find($id);
+            $user->level = 'basic';
+            $user->save();
+            return redirect()->back()->with(['edit'=>'Hủy tài khoản premium thành công']);
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors($exception->getMessage());
         }
     }
 

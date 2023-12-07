@@ -118,6 +118,10 @@ class GroupController extends BaseController
     }
 
     public function createRoom(){
+        $userLogin = \auth()->user();
+        if ($userLogin->level=='basic'){
+            return redirect()->route('frontend::group-active');
+        }
         return view('frontend::group.create');
     }
     public function postCreateRoom(Request $request){
@@ -135,7 +139,7 @@ class GroupController extends BaseController
             $user = Auth::user();
             $input['admin_id'] = $user->id;
             $input['slug'] = str_replace(' ','',$request->slug);
-
+            $input['status'] = 'disable';
             $create = $this->group->create($input);
             $create->users()->sync([$user->id=>['permission'=>'admin']]);
             //cập nhật user tạo làm admin group
@@ -253,6 +257,10 @@ class GroupController extends BaseController
         return view('frontend::group.members.index',compact('data','popularMember','myMember','listMember','countAdmin','permissionType'));
     }
 
+
+    public function activeGroup(){
+        return view('frontend::group.members.active');
+    }
 
 
 

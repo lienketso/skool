@@ -51,7 +51,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label>Tiêu đề</label>
+                            <label>Tiêu đề trang web</label>
                             <input class="form-control"
                                    name="site_name_{{$language}}"
                                    type="text"
@@ -59,21 +59,23 @@
                                    placeholder="Tên website">
                         </div>
                         <div class="form-group">
-                            <label>Tiêu đề header</label>
+                            <label>Thông tin trang nâng cấp tài khoản ( Bên trái )</label>
                                     <textarea id="editor1" name="site_top_name_{{$language}}"
                                       class="form-control makeMeRichTextarea" rows="3"
                                       placeholder="">{{$setting->getSettingMeta('site_top_name_'.$language)}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label>Mô tả trang web</label>
+                            <label>NThông tin trang nâng cấp tài khoản ( Bên phải )</label>
+                            <textarea id="editor2" name="site_footer_info_1_{{$language}}"
+                                      class="form-control makeMeRichTextarea" rows="3"
+                                      placeholder="Nội dung mục chân trang">{{$setting->getSettingMeta('site_footer_info_1_'.$language)}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Thông tin chuyển khoản khoản</label>
                             <textarea id="" name="site_description_{{$language}}" class="form-control" rows="3"
                                       placeholder="Mô tả website">{{$setting->getSettingMeta('site_description_'.$language)}}</textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Mô tả mục sản phẩm</label>
-                            <textarea id="" name="site_p_description_{{$language}}" class="form-control" rows="3"
-                                      placeholder="Mô tả mục sản phẩm trang chủ">{{$setting->getSettingMeta('site_p_description_'.$language)}}</textarea>
-                        </div>
+
 
                         <div class="form-group">
                             <label>Số hotline</label>
@@ -129,26 +131,8 @@
                                    value="{{$setting->getSettingMeta('site_instagram')}}"
                                    placeholder="">
                         </div>
-                        <div class="form-group">
-                            <label>Nội dung chân trang</label>
-                            <textarea id="editor2" name="site_footer_info_1_{{$language}}"
-                                      class="form-control makeMeRichTextarea" rows="3"
-                                      placeholder="Nội dung mục chân trang">{{$setting->getSettingMeta('site_footer_info_1_'.$language)}}</textarea>
-                        </div>
 
-                        <div class="form-group">
-                            <label>Ảnh đại diện mục thông tin</label>
-                            <div class="input-group col-xs-12" style="display: flex">
-                                <input type="text" name="banner_factory" value="{{$setting->getSettingMeta('banner_factory')}}"
-                                       id="ckfinder-input-1" class="form-control file-upload-info" placeholder="Upload Image">
-                                <span class="input-group-append">
-								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-1"  type="button">Chọn ảnh</button>
-							</span>
-                            </div>
-                            <div class="thumbnail_w" style="padding-top: 10px">
-                                <img src="{{ ($setting->getSettingMeta('banner_factory')!='null') ? upload_url($setting->getSettingMeta('banner_factory')) :  public_url('admin/themes/images/no-image.png')}}" width="100" alt="">
-                            </div>
-                        </div>
+
 
                         <div class="form-group">
                             <button class="btn btn-primary">Lưu lại</button>
@@ -179,58 +163,6 @@
                             </div>
                             <div class="thumbnail_w" style="padding-top: 10px">
                                 <img src="{{ ($setting->getSettingMeta('site_logo')!='null') ? upload_url($setting->getSettingMeta('site_logo')) :  public_url('admin/themes/images/no-image.png')}}" width="100" alt="">
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label>Tải lên profile</label>
-                            <div class="input-group col-xs-12" style="display: flex">
-                                <input type="text" name="site_profile" value="{{$setting->getSettingMeta('site_profile')}}"
-                                       id="ckfinder-input-3" class="form-control file-upload-info" placeholder="Upload Image">
-                                <span class="input-group-append">
-								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-3"  type="button">Chọn ảnh</button>
-							</span>
-                            </div>
-                            <div class="thumbnail_w" style="padding-top: 10px">
-                                <a href="{{upload_url($setting->getSettingMeta('site_profile'))}}"> <i class="fa fa-file-pdf-o"></i> File is here</a>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label>Icon freeship</label>
-                            <div class="input-group col-xs-12" style="display: flex">
-                                <input type="text" name="banner_project" value="{{$setting->getSettingMeta('banner_project')}}"
-                                       id="ckfinder-input-4" class="form-control file-upload-info" placeholder="Upload Image">
-                                <span class="input-group-append">
-								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-4"  type="button">Chọn ảnh</button>
-							</span>
-                            </div>
-                            <div class="thumbnail_w" style="padding-top: 10px">
-                                <img src="{{ ($setting->getSettingMeta('banner_project')!='null') ? upload_url($setting->getSettingMeta('banner_project')) :  public_url('admin/themes/images/no-image.png')}}" width="100" alt="">
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label>Icon lắp đặt</label>
-                            <div class="input-group col-xs-12" style="display: flex">
-                                <input type="text" name="banner_product" value="{{$setting->getSettingMeta('banner_product')}}"
-                                       id="ckfinder-input-5" class="form-control file-upload-info" placeholder="Upload Image">
-                                <span class="input-group-append">
-								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-5"  type="button">Chọn ảnh</button>
-							</span>
-                            </div>
-                            <div class="thumbnail_w" style="padding-top: 10px">
-                                <img src="{{ ($setting->getSettingMeta('banner_product')!='null') ? upload_url($setting->getSettingMeta('banner_product')) :  public_url('admin/themes/images/no-image.png')}}" width="100" alt="">
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label>Banner trang liên hệ</label>
-                            <div class="input-group col-xs-12" style="display: flex">
-                                <input type="text" name="banner_contact" value="{{$setting->getSettingMeta('banner_contact')}}"
-                                       id="ckfinder-input-6" class="form-control file-upload-info" placeholder="Upload Image">
-                                <span class="input-group-append">
-								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-6"  type="button">Chọn ảnh</button>
-							</span>
-                            </div>
-                            <div class="thumbnail_w" style="padding-top: 10px">
-                                <img src="{{ ($setting->getSettingMeta('banner_contact')!='null') ? upload_url($setting->getSettingMeta('banner_contact')) :  public_url('admin/themes/images/no-image.png')}}" width="100" alt="">
                             </div>
                         </div>
 

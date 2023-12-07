@@ -7,6 +7,7 @@ namespace Frontend\Http\Controllers;
 
 use App\Rules\MatchOldPassword;
 use Barryvdh\Debugbar\Controllers\BaseController;
+use Groups\Models\Groups;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +44,8 @@ class MemberController extends BaseController
 
         try {
             $create = $this->model->create($validatedData);
+            $create->code = 'TRIKI'.$create->id;
+            $create->save();
             $create->roles()->sync(10);
             return redirect()->route('frontend::member.login.get');
         }catch (\Exception $e){
@@ -83,7 +86,8 @@ class MemberController extends BaseController
 
     public function profile(){
         $userLogin = Auth::user();
-        return view('frontend::member.profile',compact('userLogin'));
+        $myGroup = Groups::query()->where('admin_id',$userLogin->id)->get();
+        return view('frontend::member.profile',compact('userLogin','myGroup'));
     }
     public function editProfile(){
         $userLogin = Auth::user();

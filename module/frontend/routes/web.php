@@ -50,6 +50,9 @@ Route::group(['prefix'=>'group'],function(Router $router){
         ->name('frontend::group.create-room.post')->middleware('auth');
     $router->post('edit-room/{slug}','GroupController@postEditRoom')
         ->name('frontend::group.edit-room.post')->middleware(['auth']);
+    //kích hoạt group
+    $router->get('active-group','GroupController@activeGroup')
+        ->name('frontend::group-active')->middleware(['auth']);
 });
 
 Route::group(['prefix'=>'class'],function(Router $router) {

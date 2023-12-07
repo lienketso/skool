@@ -86,11 +86,6 @@ class SettingController extends BaseController
 //            $image->move('upload/'.$path,$image->getClientOriginalName());
 //        }
         $data['site_logo'] = replace_thumbnail($data['site_logo']);
-        $data['site_profile'] = replace_thumbnail($data['site_profile']);
-        $data['banner_factory'] = replace_thumbnail($data['banner_factory']);
-        $data['banner_project'] = replace_thumbnail($data['banner_project']);
-        $data['banner_product'] = replace_thumbnail($data['banner_product']);
-        $data['banner_contact'] = replace_thumbnail($data['banner_contact']);
         $this->saveSetting($data);
         return redirect()->back()->with('edit','Sửa cấu hình thành công !');
     }

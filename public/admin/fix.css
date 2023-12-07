@@ -178,3 +178,21 @@ ul.tree1 li span a{
 .list-variant table tr td a{
     padding: 0 10px;
 }
+.acc-basic{
+    color: #ffa500;
+}
+.plus-acc{
+    padding: 5px 10px;
+    border: 1px solid;
+    cursor: pointer;
+}
+.acc-premium{
+    font-weight: bold;
+    color: #1e7e34;
+}
+.cancel-premium{
+    padding: 5px 10px;
+    border: 1px solid;
+    color: #c0392b;
+    cursor: pointer;
+}
