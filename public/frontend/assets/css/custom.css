@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,600;1,700&display=swap');
 *{
     margin: 0;
@@ -7,7 +7,7 @@
 body{
     font-size: 16px;
     line-height: 25px;
-    font-family: 'Roboto', Sans-Serif;
+    font-family: 'Roboto Condensed', sans-serif;
     background-color: #F8F7F5;
 }
 img{
@@ -1824,11 +1824,20 @@ iframe .ytp-chrome-top{
         max-width: 120px;
     }
     .notifi-group{
-        padding-top: 30px;
+        position: absolute;
+        top: -78px;
+        right: 15px;
+    }
+    .content-group{
+        padding: 15px 0;
     }
     .menu-group ul li{
         display: inline-block;
-        padding-bottom: 30px;
+        padding-bottom: 5px;
+        padding-right: 4px;
+    }
+    .menu-group ul li a.active{
+        padding-bottom: 5px;
     }
     .img-member-g{
         width: 20%;
