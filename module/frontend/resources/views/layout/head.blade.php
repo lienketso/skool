@@ -83,7 +83,8 @@
             <div class="content">
                 <div class="logo">
                     <a href="{{route('frontend::home')}}">
-                        <img src="{{asset('frontend/histudy/assets/images/logo/logo.png')}}" alt="Education Logo Images">
+                        <img src="{{ ($setting['site_logo']!='') ? upload_url($setting['site_logo']) : asset('frontend/histudy/assets/images/logo/logo.png')}}"
+                             alt="Education Logo Images">
                     </a>
                 </div>
                 <div class="rbt-btn-close">
