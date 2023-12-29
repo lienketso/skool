@@ -62,7 +62,8 @@
             "Frontend\\": "module/frontend/src",
             "Order\\": "module/order/src",
             "Location\\": "module/location/src",
-            "Groups\\": "module/groups/src"
+            "Groups\\": "module/groups/src",
+            "Faq\\": "module/faq/src"
         },
         "classmap": [
             "database/seeds",

@@ -6,7 +6,7 @@ use Users\Models\Users;
 class Groups extends Model
 {
     protected $table = 'groups';
-    protected $fillable = ['admin_id','name','slug','group_type','bio','thumbnail','banner','status'];
+    protected $fillable = ['admin_id','name','slug','group_type','bio','thumbnail','banner','status','is_home'];
 
     public function setSlugAttribute($value)
     {

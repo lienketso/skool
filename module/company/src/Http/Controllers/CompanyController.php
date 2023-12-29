@@ -51,14 +51,7 @@ class CompanyController extends BaseController
     public function postCreate(CompanyCreateRequest $request){
         try{
             $input = $request->except(['_token','continue_post']);
-            if($request->hasFile('thumbnail')){
-                $image = $request->thumbnail;
-                $path = date('Y').'/'.date('m').'/'.date('d');
-                $newnname = time().'-'.$image->getClientOriginalName();
-                $newnname = convert_vi_to_en(str_replace(' ','-',$newnname));
-                $input['thumbnail'] = $path.'/'.$newnname;
-                $image->move('upload/'.$path,$newnname);
-            }
+            $input['thumbnail'] = replace_thumbnail($input['thumbnail']);
             $input['useradd'] = Auth::id();
             $input['slug'] = $request->name;
             $input['lang_code'] = $this->langcode;
@@ -70,7 +63,7 @@ class CompanyController extends BaseController
                 $input['meta_desc'] = $request->description;
             }
             $data = $this->model->create($input);
-            $this->model->sync($data->id,'category',$request->cat_id);
+
             if($request->has('continue_post')){
                 return redirect()
                     ->route('wadmin::company.create.get')
@@ -86,29 +79,13 @@ class CompanyController extends BaseController
 
     function getEdit($id, CatproductRepository $catproductRepository){
         $data = $this->model->find($id);
-        $categoryList = $catproductRepository->orderBy('sort_order')
-            ->findWhere(['lang_code'=>$this->langcode])->all();
-        $currentPermision = $data->category()->get()->toArray();
-        $args = [];
-        foreach ($currentPermision as $cat) {
-            $args[] = $cat['id'];
-        }
-        return view('wadmin-company::edit',['data'=>$data,'categoryList'=>$categoryList,'args'=>$args]);
+        return view('wadmin-company::edit',['data'=>$data]);
     }
 
     function postEdit($id, CompanyEditRequest $request){
         try{
             $input = $request->except(['_token']);
-
-            if($request->hasFile('thumbnail')){
-                $image = $request->thumbnail;
-                $path = date('Y').'/'.date('m').'/'.date('d');
-                $newnname = time().'-'.$image->getClientOriginalName();
-                $newnname = convert_vi_to_en(str_replace(' ','-',$newnname));
-                $input['thumbnail'] = $path.'/'.$newnname;
-                $image->move('upload/'.$path,$newnname);
-            }
-
+            $input['thumbnail'] = replace_thumbnail($input['thumbnail']);
             $input['slug'] = $request->name;
             //cấu hình seo
             if($request->meta_title==''){
@@ -118,7 +95,6 @@ class CompanyController extends BaseController
                 $input['meta_desc'] = $request->description;
             }
             $user = $this->model->update($input, $id);
-            $this->model->sync($id,'category',$request->cat_id);
             return redirect()->route('wadmin::company.index.get')->with('edit','Bạn vừa cập nhật dữ liệu');
         }catch (\Exception $e){
             return redirect()->back()->withErrors(config('messages.error'));

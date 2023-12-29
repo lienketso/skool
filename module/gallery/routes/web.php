@@ -5,9 +5,9 @@ use Illuminate\Routing\Router;
 
 $adminRoute = config('base.admin_route');
 $moduleRoute = 'gallery';
-$groupRoute = 'group';
 
-Route::group(['prefix'=>$adminRoute],function(Router $router) use($adminRoute,$moduleRoute,$groupRoute){
+
+Route::group(['prefix'=>$adminRoute],function(Router $router) use($adminRoute,$moduleRoute){
     $router->group(['prefix'=>$moduleRoute],function(Router $router) use ($adminRoute,$moduleRoute){
         $router->get('index','GalleryController@getIndex')
             ->name('wadmin::gallery.index.get')->middleware('permission:gallery_index');
@@ -25,11 +25,5 @@ Route::group(['prefix'=>$adminRoute],function(Router $router) use($adminRoute,$m
             ->name('wadmin::gallery.change.get');
     });
 
-    $router->group(['prefix'=>$groupRoute],function(Router $router) use ($adminRoute,$groupRoute){
-        $router->get('index','GroupController@getIndex')
-            ->name('wadmin::group.index.get')->middleware('permission:group_index');
-        $router->get('change/{id}','GroupController@changeStatus')
-            ->name('wadmin::group.change.get');
-    });
 
 });

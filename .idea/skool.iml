@@ -30,6 +30,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/module/groups/src" isTestSource="false" packagePrefix="Groups\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/faq/src" isTestSource="false" packagePrefix="Faq\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nunomaduro/collision" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fruitcake/laravel-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />

@@ -2,12 +2,12 @@
 @section('content')
     <ol class="breadcrumb breadcrumb-quirk">
         <li><a href="{{route('wadmin::dashboard.index.get')}}"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-        <li><a href="">Danh sách công ty</a></li>
+        <li><a href="">Danh sách cảm nhận</a></li>
     </ol>
     <div class="panel">
         <div class="panel-heading">
-            <h4 class="panel-title">Danh sách công ty</h4>
-            <p>Danh sách công ty trên trang</p>
+            <h4 class="panel-title">Danh sách cảm nhận</h4>
+            <p>Danh sách cảm nhận trên trang chủ</p>
         </div>
 
         <div class="search_page">
@@ -46,11 +46,9 @@
                 <table class="table nomargin">
                     <thead>
                     <tr>
-                        <th>Logo</th>
-                        <th>Tên công ty</th>
-                        <th>Thành phố</th>
-                        <th>Lượt xem</th>
-                        <th>Người tạo</th>
+                        <th>Icon</th>
+                        <th>Tiêu đề</th>
+                        <th>Nội dung</th>
                         <th class="">Ngày tạo</th>
                         <th class="">Trạng thái</th>
                         <th></th>
@@ -66,14 +64,8 @@
                             </td>
                             <td class="namego">
                                 <h4>{{$d->name}}</h4>
-                                <ul>
-                                    <li>Khu vực : {{$d->city}} - Số điện thoại : {{$d->phone}}</li>
-                                    <li>Email : {{$d->email}}</li>
-                                </ul>
                             </td>
-                            <td>{{$d->city}}</td>
-                            <td>{{$d->count_view}}</td>
-                            <td>Đang xử lý...</td>
+                            <td>{{$d->description}}</td>
                             <td>{{format_date($d->created_at)}}</td>
                             <td><a href="{{route('wadmin::company.change.get',$d->id)}}"
                                    class="btn btn-sm {{($d->status=='active') ? 'btn-success' : 'btn-warning'}} radius-30">

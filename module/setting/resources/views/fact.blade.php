@@ -26,7 +26,7 @@
 
     <ol class="breadcrumb breadcrumb-quirk">
         <li><a href="{{route('wadmin::dashboard.index.get')}}"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-        <li><a href="{{route('wadmin::setting.index.get')}}">Cấu hình thông số</a></li>
+        <li><a href="{{route('wadmin::setting.index.get')}}">Cấu hình mục banner trang chủ</a></li>
         <li class="active">Thông tin cấu hình</li>
     </ol>
 
@@ -45,44 +45,51 @@
             <div class="col-sm-8">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Thông tin cấu hình checkout</h4>
+                        <h4 class="panel-title">Thông tin cấu hình mục banner tại trang chủ</h4>
                         <p>Bạn cần nhập đầy đủ các thông tin để cấu hình thông tin mong muốn</p>
                     </div>
                     <div class="panel-body">
+                        <div class="row" style="padding-bottom: 20px">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Text 1</label>
+                                    <input class="form-control"
+                                           name="home_text_banner_1"
+                                           type="text"
+                                           value="{{$setting->getSettingMeta('home_text_banner_1')}}"
+                                           placeholder="Text 1">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Text 2</label>
+                                    <input class="form-control"
+                                           name="home_text_banner_2"
+                                           type="text"
+                                           value="{{$setting->getSettingMeta('home_text_banner_2')}}"
+                                           placeholder="Text 2">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label>Phí vận chuyển</label>
+                            <label>Heading banner</label>
                             <input class="form-control"
-                                   name="fact_name_1_vn"
+                                   name="home_heading_banner"
                                    type="text"
-                                   value="{{$setting->getSettingMeta('fact_name_1_vn')}}"
-                                   placeholder="Thông tin phí vận chuyển">
+                                   value="{{$setting->getSettingMeta('home_heading_banner')}}"
+                                   placeholder="">
                         </div>
                         <div class="form-group">
-                            <label>% Giảm giá khuyến mại qua chuyển khoản</label>
-                            <input class="form-control"
-                                   name="fact_title_1_{{$language}}"
-                                   type="number"
-                                   min="0"
-                                   max="100"
-                                   value="{{$setting->getSettingMeta('fact_title_1_'.$language)}}"
-                                   placeholder="% giảm giá">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nội dung khuyến mại</label>
-                            <textarea id="editor1" name="fact_description_{{$language}}" class="form-control" rows="3"
-                                      placeholder="">{{$setting->getSettingMeta('fact_description_'.$language)}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Thông tin thanh toán chuyển khoản</label>
-                            <textarea id="" name="fact_number_1_{{$language}}" class="form-control" rows="3"
+                            <label>Text slide heading ( Danh sách chữ chạy dưới heading banner )</label>
+                            <textarea id="" rows="8" name="fact_number_1_{{$language}}" class="form-control" rows="3"
                                       placeholder="">{{$setting->getSettingMeta('fact_number_1_'.$language)}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label>Nội dung đặt hàng thành công</label>
-                            <textarea id="editor2" name="fact_title_2_{{$language}}" class="form-control" rows="3"
-                                      placeholder="">{{$setting->getSettingMeta('fact_title_2_'.$language)}}</textarea>
+                            <label>Nội dung banner</label>
+                            <textarea id="editor1" name="fact_description_{{$language}}" class="form-control" rows="3"
+                                      placeholder="">{{$setting->getSettingMeta('fact_description_'.$language)}}</textarea>
                         </div>
+
 
 
                         <div class="form-group">
@@ -105,7 +112,7 @@
                     <div class="panel-body">
 
                         <div class="form-group">
-                            <label>Ảnh background trang thanh toán thành công</label>
+                            <label>Ảnh banner </label>
                             <div class="input-group col-xs-12" style="display: flex">
                                 <input type="text" name="fact_background" value="{{$setting->getSettingMeta('fact_background')}}"
                                        id="ckfinder-input-2" class="form-control file-upload-info" placeholder="Upload Image">

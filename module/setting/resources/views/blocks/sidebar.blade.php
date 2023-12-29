@@ -1,11 +1,11 @@
 @php
     $listRoute = [
-        'wadmin::setting.index.get', 'wadmin::setting.fact.get', 'wadmin::setting.keyword.get','wadmin::setting.about.get'
+        'wadmin::setting.index.get', 'wadmin::setting.fact.get', 'wadmin::setting.keyword.get','wadmin::setting.box.get','wadmin::setting.why.get'
     ];
     $indexRoute = ['wadmin::setting.index.get'];
-    $AboutRoute = ['wadmin::setting.about.get'];
+    $boxRoute = ['wadmin::setting.box.get'];
     $factRoute = ['wadmin::setting.fact.get'];
-    $keywordRoute = ['wadmin::setting.keyword.get'];
+    $whyRoute = ['wadmin::setting.why.get'];
 @endphp
 
 @php
@@ -19,6 +19,9 @@
     <a href="" ><i class="fa fa-gears"></i> <span>Cấu hình</span></a>
     <ul class="children">
         <li class="{{in_array(Route::currentRouteName(), $indexRoute) ? 'active' : '' }}"><a href="{{route('wadmin::setting.index.get')}}">Cấu hình chung</a></li>
+        <li class="{{in_array(Route::currentRouteName(), $factRoute) ? 'active' : '' }}"><a href="{{route('wadmin::setting.fact.get')}}">Mục banner</a></li>
+        <li class="{{in_array(Route::currentRouteName(), $boxRoute) ? 'active' : '' }}"><a href="{{route('wadmin::setting.box.get')}}">Mục box thông tin</a></li>
+        <li class="{{in_array(Route::currentRouteName(), $whyRoute) ? 'active' : '' }}"><a href="{{route('wadmin::setting.why.get')}}">Tại sao chọn</a></li>
     </ul>
 </li>
 @endif

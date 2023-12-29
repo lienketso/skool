@@ -14,8 +14,7 @@ class CompanyCreateRequest extends FormRequest
 
     public function rules(){
         return [
-            'name'=> 'required|unique:company,name',
-            'cat_id'=>'required'
+            'name'=> 'required',
         ];
     }
 
@@ -23,7 +22,6 @@ class CompanyCreateRequest extends FormRequest
         return [
             'name.required'=>'Bạn chưa nhập tên công ty',
             'name.unique'=>'Tên công ty đã được đặt trước đó',
-            'cat_id.required'=>'Bạn chưa chọn ngành nghề'
         ];
     }
 

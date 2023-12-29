@@ -20,9 +20,14 @@ Route::group(['prefix'=>$adminRoute],function(Router $router) use($adminRoute,$m
             ->name('wadmin::setting.keyword.get')->middleware('permission:setting_keyword');
         $router->post('keyword','SettingController@postKeyword')
             ->name('wadmin::setting.keyword.post')->middleware('permission:setting_keyword');
-        $router->get('about','SettingController@getAbout')
-            ->name('wadmin::setting.about.get')->middleware('permission:setting_about');
-        $router->post('about','SettingController@postAbout')
-            ->name('wadmin::setting.about.post')->middleware('permission:setting_about');
+        $router->get('box','SettingController@getBox')
+            ->name('wadmin::setting.box.get')->middleware('permission:setting_index');
+        $router->post('box','SettingController@postBox')
+            ->name('wadmin::setting.box.post')->middleware('permission:setting_index');
+
+        $router->get('why','SettingController@getWhy')
+            ->name('wadmin::setting.why.get')->middleware('permission:setting_index');
+        $router->post('why','SettingController@postWhy')
+            ->name('wadmin::setting.why.post')->middleware('permission:setting_index');
     });
 });

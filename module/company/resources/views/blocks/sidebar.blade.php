@@ -7,10 +7,6 @@
 
 @endphp
 
-<li class="nav-parent {{in_array(Route::currentRouteName(), $listRoute) ? 'nav-active active' : '' }}">
-    <a href="" ><i class="fa fa-smile-o"></i> <span>Công ty</span></a>
-    <ul class="children">
-        <li class="{{in_array(Route::currentRouteName(), $indexRoute) ? 'active' : '' }}"><a href="{{route('wadmin::company.index.get')}}">Danh sách công ty</a></li>
-        <li class="{{in_array(Route::currentRouteName(), $createRoute) ? 'active' : '' }}"><a href="{{route('wadmin::company.create.get')}}">Thêm mới</a></li>
-    </ul>
+<li class="{{in_array(Route::currentRouteName(), $listRoute) ? 'active' : '' }}">
+    <a href="{{route('wadmin::company.index.get')}}"><i class="fa fa-comment"></i> Cảm nhận khách hàng</a>
 </li>

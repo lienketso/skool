@@ -10,7 +10,9 @@ use Category\Repositories\CategoryRepository;
 use Company\Repositories\CompanyRepository;
 use Contact\Http\Requests\ContactCreateRequest;
 use Contact\Repositories\ContactRepository;
+use Faq\Repositories\FaqRepository;
 use Gallery\Repositories\GalleryRepository;
+use Groups\Repositories\GroupsRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Http;
@@ -25,19 +27,21 @@ use Transaction\Repositories\TransactionRepository;
 
 class HomeController extends BaseController
 {
-    protected $catnews;
+    protected $group;
     protected $lang;
-    protected $cat;
+    protected $faq;
     protected $ga;
     protected $po;
-    public function __construct(CategoryRepository $categoryRepository,CatproductRepository $catproductRepository,
-                                GalleryRepository $galleryRepository, ProductRepository $productRepository)
+    protected $com;
+    public function __construct(GroupsRepository $groupsRepository,FaqRepository $faqRepository,
+                                GalleryRepository $galleryRepository, ProductRepository $productRepository, CompanyRepository $companyRepository)
     {
         $this->lang = session('lang');
-        $this->catnews = $categoryRepository;
-        $this->cat = $catproductRepository;
+        $this->group = $groupsRepository;
+        $this->faq = $faqRepository;
         $this->ga = $galleryRepository;
         $this->po = $productRepository;
+        $this->com = $companyRepository;
     }
 
     private $langActive = ['vn','en'];
@@ -47,82 +51,21 @@ class HomeController extends BaseController
             return redirect()->route('frontend::home');
         }
     }
-    function getIndex(PostRepository $postRepository){
+    function getIndex(){
 
-        $gallery = $this->ga->scopeQuery(function ($e){
-            return $e->orderBy('sort_order','asc')
-                ->where('status','active')
-                ->where('group_id',1)
-                ->where('lang_code',$this->lang);
-        })->limit(20);
-
-        $banner = $this->ga->scopeQuery(function ($e){
-            return $e->orderBy('sort_order','asc')
-                ->where('status','active')
-                ->where('group_id',2)
-                ->where('lang_code',$this->lang);
-        })->limit(20);
-
-        $popularCat = $this->cat->scopeQuery(function($e){
-           return $e->orderBy('sort_order','asc')
-               ->where('status','active')->where('display',1)->where('parent',0)
-               ->where('lang_code',$this->lang)->with('childactive')->get();
-        })->limit(10);
-
-
-        $pageAbout = $postRepository->findWhere(['lang_code'=>$this->lang,'status'=>'active','display'=>1,'post_type'=>'page'])->first();
-
-        $latestNews = $postRepository->scopeQuery(function($e){
-            return $e->orderBy('created_at','desc')
-                ->where('lang_code',$this->lang)
-                ->where('status','active')
-                ->where('display',3)
-                ->where('post_type','blog')
-                ->get();
-        })->limit(3);
-
-        //sản phẩm nổi bật
-        $productHot = $this->po->scopeQuery(function ($e){
-            return $e->orderBy('age','asc')
-                ->where('status','active')
-                ->where('lang_code',$this->lang)
-                ->where('display',2)->get();
-        })->limit(21);
-        //sản phẩm slider
-        $productSlider = $this->po->scopeQuery(function($e){
-            return $e->orderBy('created_at','desc')
-                ->where('status','active')
-                ->where('lang_code',$this->lang)
-                ->where('display',3)
-                ->get();
-        })->limit(20);
-        //danh mục tin trang chủ
-        $catnewsHome = $this->catnews->with('postCat')->scopeQuery(function($e){
-            return $e->orderBy('sort_order','asc')
-                ->where('status','active')
-                ->where('lang_code',$this->lang)
-                ->where('display',1)->get();
-        })->limit(4);
-
-        //project
-        $projectHome = $postRepository->scopeQuery(function ($e){
-          return $e->orderBy('created_at','desc')
-          ->where('status','active')
-          ->where('lang_code',$this->lang)
-          ->where('post_type','project')->get();
-        })->limit(6);
-
+        //cảm nhận khách hàng
+        $commentHome = $this->com->findWhere(['status'=>'active','lang_code'=>$this->lang])->toArray();
+        $chunkComment = array_chunk($commentHome,ceil(count($commentHome) / 3));
+        //Hỏi đáp
+        $faqList = $this->faq->orderBy('sort_order','asc')->findWhere(['status'=>'active'])->all();
+        //Group nổi bật
+        $listHotGroup = $this->group->orderBy('created_at','asc')
+            ->findWhere(['status'=>'active','is_home'=>1])->take(9);
 
         return view('frontend::home.index',[
-            'gallery'=>$gallery,
-            'banner'=>$banner,
-            'productHot'=>$productHot,
-            'popularCat'=>$popularCat,
-            'latestNews'=>$latestNews,
-            'pageAbout'=>$pageAbout,
-            'productSlider'=>$productSlider,
-            'catnewsHome'=>$catnewsHome,
-            'projectHome'=>$projectHome
+            'chunkComment'=>$chunkComment,
+            'faqList'=>$faqList,
+            'listHotGroup'=>$listHotGroup
         ]);
     }
     public function about(SettingRepositories $settingRepositories, PostRepository $postRepository){

@@ -46,80 +46,23 @@
             <div class="col-sm-8">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Thêm công ty</h4>
-                        <p>Bạn cần nhập đầy đủ các thông tin để thêm công ty mới</p>
+                        <h4 class="panel-title">Thêm cảm nhận khách hàng</h4>
+                        <p>Bạn cần nhập đầy đủ các thông tin để thêm cảm nhận khách hàng mới</p>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label>Tên công ty</label>
+                            <label>Tiêu đề</label>
                             <input class="form-control"
                                    name="name"
                                    type="text"
                                    value="{{old('name')}}"
-                                   placeholder="Tên công ty">
-                        </div>
-                        <div class="form-group">
-                            <label>Thành phố</label>
-                            <input class="form-control"
-                                   name="city"
-                                   type="text"
-                                   value="{{old('city')}}"
-                                   placeholder="Tên thành phố">
-                        </div>
-                        <div class="form-group">
-                            <label>Địa chỉ</label>
-                            <input class="form-control"
-                                   name="address"
-                                   type="text"
-                                   value="{{old('address')}}"
-                                   placeholder="Địa chỉ chi tiết">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input class="form-control"
-                                   name="email"
-                                   type="text"
-                                   value="{{old('email')}}"
-                                   placeholder="Địa chỉ email">
-                        </div>
-                        <div class="form-group">
-                            <label>Số điện thoại</label>
-                            <input class="form-control"
-                                   name="phone"
-                                   type="text"
-                                   value="{{old('phone')}}"
-                                   placeholder="Số điện thoại">
-                        </div>
-                        <div class="form-group">
-                            <label>Lĩnh vực ngành nghề</label>
-                            <select id="select6" class="form-control select2-hidden-accessible" name="cat_id[]" style="width: 100%"
-                                    data-placeholder="Chọn các ngành" multiple="" tabindex="-1" aria-hidden="true">
-                                @foreach($categoryList as $c)
-                                    <option value="{{$c->id}}" >{{$c->name}}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Mô tả ngắn</label>
-                            <textarea id="" name="description" class="form-control" rows="3" placeholder="Mô tả ngắn">{{old('description')}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Nội dung về công ty</label>
-                            <textarea id="editor1" name="content" class="form-control makeMeRichTextarea" rows="3" placeholder="Nội dung bài viết">{{old('content')}}</textarea>
+                                   placeholder="Ex: Mr Pepba">
                         </div>
 
+
                         <div class="form-group">
-                            <label>Thẻ Meta title</label>
-                            <input class="form-control"
-                                   name="meta_title"
-                                   type="text"
-                                   value="{{old('meta_title')}}"
-                                   placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label>Thẻ meta description</label>
-                            <textarea id="" name="meta_desc" class="form-control" rows="3" placeholder="Thẻ Meta description">{{old('meta_desc')}}</textarea>
+                            <label>Nội dung cảm nhận</label>
+                            <textarea id="" name="description" class="form-control" rows="3" placeholder="Nội dung nhận xét">{{old('description')}}</textarea>
                         </div>
 
                         <div class="form-group">
@@ -142,54 +85,6 @@
                     <div class="panel-body">
 
                         <div class="form-group">
-                            <label>Mã số thuế</label>
-                            <input class="form-control"
-                                   name="tax_name"
-                                   type="text"
-                                   value="{{old('tax_name')}}"
-                                   placeholder="Mã số doanh nghiệp">
-                        </div>
-                        <div class="form-group">
-                            <label>Vốn điều lệ</label>
-                            <input class="form-control"
-                                   name="moneyrule"
-                                   type="text"
-                                   value="{{old('moneyrule')}}"
-                                   placeholder="Vốn điều lệ">
-                        </div>
-                        <div class="form-group">
-                            <label>Năm thành lập</label>
-                            <input class="form-control"
-                                   name="operating_year"
-                                   type="text"
-                                   value="{{old('operating_year')}}"
-                                   placeholder="Năm thành lập">
-                        </div>
-                        <div class="form-group">
-                            <label>Loại hình công ty</label>
-                            <select id="" name="legal_type" class="form-control" style="width: 100%" >
-                                <option value="1" {{ (old('legal_type') ==1) ? 'selected' : ''}}>Công ty cổ phần</option>
-                                <option value="2" {{ (old('legal_type') ==2 ) ? 'selected' : ''}}>Công ty TNHH</option>
-                                <option value="3" {{ (old('legal_type') ==3 ) ? 'selected' : ''}}>Công ty tư nhân</option>
-                                <option value="4" {{ (old('legal_type') ==4 ) ? 'selected' : ''}}>Công ty hợp doanh</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tình trạng hoạt động</label>
-                            <select id="" name="operating_status" class="form-control" style="width: 100%" >
-                                <option value="active" {{ (old('operating_status')=='active') ? 'selected' : ''}}>Đang hoạt động</option>
-                                <option value="disable" {{ (old('operating_status')=='disable') ? 'selected' : ''}}>Ngừng hoạt động</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Vị trí hiển thị</label>
-                            <select id="" name="display" class="form-control" style="width: 100%" >
-                                <option value="0" {{ (old('display') ==0 ) ? 'selected' : ''}}>Không chọn</option>
-                                <option value="1" {{ (old('display') ==1 ) ? 'selected' : ''}}>Top Hot</option>
-                                <option value="2" {{ (old('display') ==2 ) ? 'selected' : ''}}>Latest home</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label>Trạng thái</label>
                             <select id="" name="status" class="form-control" style="width: 100%" data-placeholder="Trạng thái">
                                 <option value="active" {{ (old('status')=='active') ? 'selected' : ''}}>Hiển thị</option>
@@ -197,11 +92,13 @@
                             </select>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label>Ảnh đại diện</label>
-                            <div class="custom-file">
-                                <input type="file" name="thumbnail" value="{{old('thumbnail')}}" class="custom-file-input" id="inputGroupFile01" >
-                                <label class="custom-file-label" for="inputGroupFile01">{{old('thumbnail')}}</label>
+                        <div class="form-group">
+                            <label>Upload ảnh</label>
+                            <div class="input-group col-xs-12" style="display: flex">
+                                <input type="text" name="thumbnail" value="<?= old('thumbnail'); ?>" id="ckfinder-input-1" class="form-control file-upload-info" placeholder="Upload Image">
+                                <span class="input-group-append">
+								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-1"  type="button">Chọn ảnh</button>
+							</span>
                             </div>
                         </div>
 

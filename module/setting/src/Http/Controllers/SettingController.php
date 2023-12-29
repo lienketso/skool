@@ -33,39 +33,27 @@ class SettingController extends BaseController
         return view('wadmin-setting::fact',['setting'=>$setting,'language'=>$langcode]);
     }
 
+    public function getBox(){
+        $setting = $this->model;
+        return view('wadmin-setting::box',['setting'=>$setting]);
+    }
     public function getKeyword(){
         $setting = $this->model;
         $langcode = $this->langcode;
         return view('wadmin-setting::keyword',['setting'=>$setting,'language'=>$langcode]);
     }
 
-    public function getAbout(){
+    public function getWhy(){
         $setting = $this->model;
-        $langcode = $this->langcode;
-        $check = $this->model->getSettingMeta('about_section_list_1_title_'.$langcode);
-
-        $checkList = json_decode($check);
-        return view('wadmin-setting::about',['setting'=>$setting,'language'=>$langcode,'checkList'=>$checkList]);
+        return view('wadmin-setting::why',['setting'=>$setting]);
     }
 
-    public function postAbout(Request $request){
-        $langcode = $this->langcode;
+    public function postBox(Request $request){
         $data = $request->except('_token');
-//        if($request->hasFile('about_banner_page')){
-//            $image = $request->about_banner_page;
-//            $path = date('Y').'/'.date('m').'/'.date('d');
-//            $data['about_banner_page'] = $path.'/'.$image->getClientOriginalName();
-//            $image->move('upload/'.$path,$image->getClientOriginalName());
-//        }
-        $data['about_section_4_img'] = replace_thumbnail($data['about_section_4_img']);
-        $data['about_section_1_img'] = replace_thumbnail($data['about_section_1_img']);
-        $data['about_section_2_img'] = replace_thumbnail($data['about_section_2_img']);
-        $data['about_section_3_img'] = replace_thumbnail($data['about_section_3_img']);
-
-        // $about_title = $data['about_section_list_1_title_'.$langcode];
-        // $data['about_section_list_1_title_'.$langcode] = json_encode($about_title);
-
-
+        $data['home_box_icon_1'] = replace_thumbnail($data['home_box_icon_1']);
+        $data['home_box_icon_2'] = replace_thumbnail($data['home_box_icon_2']);
+        $data['home_box_icon_3'] = replace_thumbnail($data['home_box_icon_3']);
+        $data['home_box_icon_4'] = replace_thumbnail($data['home_box_icon_4']);
         $this->saveSetting($data);
         return redirect()->back()->with('edit','Sửa cấu hình thành công !');
     }
@@ -98,7 +86,7 @@ class SettingController extends BaseController
 //            $data['fact_image'] = $path.'/'.$image->getClientOriginalName();
 //            $image->move('upload/'.$path,$image->getClientOriginalName());
 //        }
-        $data['fact_image'] = replace_thumbnail($data['fact_image']);
+//        $data['fact_image'] = replace_thumbnail($data['fact_image']);
         $data['fact_background'] = replace_thumbnail($data['fact_background']);
 
         $this->saveSetting($data);
@@ -106,6 +94,12 @@ class SettingController extends BaseController
     }
 
     public function postKeyword(Request $request){
+        $data = $request->except('_token');
+        $this->saveSetting($data);
+        return redirect()->back()->with('edit','Sửa cấu hình thành công !');
+    }
+
+    public function postWhy(Request  $request){
         $data = $request->except('_token');
         $this->saveSetting($data);
         return redirect()->back()->with('edit','Sửa cấu hình thành công !');
