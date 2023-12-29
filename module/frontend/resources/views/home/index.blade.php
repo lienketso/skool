@@ -305,7 +305,7 @@
                             <div class="inner">
                                 <div class="thumbnail">
                                     <img
-                                        src="{{ ($d->thumbnail!='') ? upload_url($d->thumbnail) : asset('frontend/histudy/assets/images')}}/splash/feature/feature-08.png"
+                                        src="{{ ($d->thumbnail!='') ? upload_url($d->thumbnail) : asset('frontend/histudy/assets/images/splash/feature/feature-08.png')}}"
                                          alt="{{$d->name}}">
                                 </div>
                                 <div class="content">
