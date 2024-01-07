@@ -2,12 +2,12 @@
 @section('content')
     <ol class="breadcrumb breadcrumb-quirk">
         <li><a href="{{route('wadmin::dashboard.index.get')}}"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-        <li><a href="">Danh sách thông tin</a></li>
+        <li><a href="">Danh sách ngân hàng</a></li>
     </ol>
     <div class="panel">
         <div class="panel-heading">
-            <h4 class="panel-title">Danh sách thông tin</h4>
-            <p>Danh sách thông tin trên trang</p>
+            <h4 class="panel-title">Danh sách ngân hàng</h4>
+            <p>Danh sách ngân hàng chuyển khoản QR</p>
         </div>
 
         <div class="search_page">
@@ -15,7 +15,7 @@
                 <div class="row">
                     <form method="get">
                         <div class="col-sm-5">
-                            <input type="text" name="name" placeholder="Nhập tiêu đề" class="form-control">
+                            <input type="text" name="name" placeholder="Nhập tên ngân hàng" class="form-control">
                         </div>
                         <div class="col-sm-2">
                             <button type="submit" class="btn btn-info">Tìm kiếm</button>
@@ -46,12 +46,12 @@
                 <table class="table nomargin">
                     <thead>
                     <tr>
-                        <th>Hình ảnh</th>
-                        <th>Tiêu đề</th>
-                        <th>Người soạn</th>
-                        <th>Lượt xem</th>
+                        <th>Mã ngân hàng</th>
+                        <th>Tên ngân hàng</th>
+                        <th>Người thụ hưởng</th>
+                        <th>Số tài khoản</th>
+                        <th>Thứ tự</th>
                         <th class="">Ngày tạo</th>
-                        <th class="">Trạng thái</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -59,17 +59,13 @@
                     @foreach($data as $d)
                         <tr>
                             <td>
-                                <div class="product-img bg-transparent border">
-                                    <img src="{{ ($d->thumbnail!='') ? upload_url($d->thumbnail) : public_url('admin/themes/images/no-image.png')}}" width="100" alt="">
-                                </div>
+                                {{$d->bank_id}}
                             </td>
                             <td>{{$d->name}}</td>
-                            <td>{{$d->getUserPost->username}}</td>
-                            <td>{{$d->count_view}}</td>
+                            <td>{{$d->account_name}}</td>
+                            <td>{{$d->account_no}}</td>
+                            <td>{{$d->sort_order}}</td>
                             <td>{{format_date($d->created_at)}}</td>
-                            <td><a href="{{route('wadmin::project.change.get',$d->id)}}"
-                                   class="btn btn-sm {{($d->status=='active') ? 'btn-success' : 'btn-warning'}} radius-30">
-                                    {{($d->status=='active') ? 'Đang hiển thị' : 'Tạm ẩn'}}</a></td>
                             <td>
                                 <ul class="table-options">
                                     <li><a href="{{route('wadmin::project.edit.get',$d->id)}}"><i class="fa fa-pencil"></i></a></li>

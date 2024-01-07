@@ -263,9 +263,6 @@ a, a:hover{
 .category-group span a{
     color: rgb(144, 144, 144);
 }
-.list-write-content{
-    padding-top: 50px;
-}
 .desc-item-left h3{
     font-size: 18px;
     font-weight: 500;
@@ -1750,6 +1747,11 @@ iframe .ytp-chrome-top{
 .breadcrumb-triki a:hover{
     color: #ffa500;
 }
+#changeBank{
+    padding: 5px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+}
 @media(min-width: 768px){
     .form-active-group{
         width: 600px;
@@ -1790,8 +1792,14 @@ iframe .ytp-chrome-top{
         max-height: 235px;
         overflow: hidden;
     }
+    .list-write-content{
+        padding-top: 50px;
+    }
 }
 @media(max-width: 767px){
+    .list-write-content{
+        padding-top: 25px;
+    }
     .content-active-group{
         display: block;
         padding: 0 10px;
@@ -1838,7 +1846,7 @@ iframe .ytp-chrome-top{
     .menu-group ul li{
         display: inline-block;
         padding-bottom: 5px;
-        padding-right: 4px;
+        padding-right: 10px;
     }
     .menu-group ul li a.active{
         padding-bottom: 5px;

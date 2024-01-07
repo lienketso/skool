@@ -17,6 +17,8 @@ use Product\Models\Catproduct;
 use Product\Models\ProductMark;
 use Product\Repositories\CatproductRepository;
 use Product\Repositories\ProductRepository;
+use Project\Repositories\BankRepository;
+use Setting\Repositories\SettingRepositories;
 
 class ApiController extends BaseController
 {
@@ -26,10 +28,16 @@ class ApiController extends BaseController
     protected $group;
     protected $pro;
     protected $cm;
+    protected $bank;
+    protected $set;
     public function __construct(PostRepository $postRepository,
                                 MediaRepository $mediaRepository,
                                 CatproductRepository $catproductRepository,
-                                GroupsRepository $groupsRepository,ProductRepository $productRepository, CommentsRepository $commentsRepository
+                                GroupsRepository $groupsRepository,
+                                ProductRepository $productRepository,
+                                CommentsRepository $commentsRepository,
+                                BankRepository $bankRepository,
+                                SettingRepositories $settingRepositories
     )
     {
         $this->post = $postRepository;
@@ -38,6 +46,8 @@ class ApiController extends BaseController
         $this->group = $groupsRepository;
         $this->pro = $productRepository;
         $this->cm = $commentsRepository;
+        $this->bank = $bankRepository;
+        $this->set = $settingRepositories;
     }
 
     public function apiPostGroup(Request $request){
@@ -275,6 +285,20 @@ class ApiController extends BaseController
             //dong bo user da like bai nay roi
             $infor->likesComment()->sync($user_id);
             return response()->json($infor);
+        }catch (\Exception $e){
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function getBankItem(Request $request){
+        $bank_id = $request->bank_id;
+        try {
+            $userCode = auth()->user()->code;
+            $settingAmount = $this->set->getSettingMeta('update_amount_setting');
+            $bankInfor = $this->bank->findWhere(['bank_id'=>$bank_id])->first();
+            $img = 'https://img.vietqr.io/image/'.$bankInfor->bank_id.'-'.$bankInfor->account_no.'-'.$bankInfor->template.'.png?amount='.$settingAmount.'&addInfo='.$userCode.'&accountName='.$bankInfor->account_name;
+            $fullImg = '<img src="'.$img.'">';
+            return response()->json($bankInfor);
         }catch (\Exception $e){
             return response()->json($e->getMessage());
         }

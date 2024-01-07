@@ -74,7 +74,6 @@
                         <li><a class="{{in_array(Route::currentRouteName(), $classRoute) ? 'active' : '' }}" href="{{route('frontend::group.classroom.get',$data->slug)}}">Classroom</a></li>
                         <li><a class="{{in_array(Route::currentRouteName(), $memberRoute) ? 'active' : '' }}" href="{{route('frontend::group.member.get',$data->slug)}}">Thành viên</a></li>
                         <li><a href="#">Bảng xếp hạng</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
                     </ul>
                 </div>
             </div>

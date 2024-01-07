@@ -65,7 +65,7 @@
                                       placeholder="">{{$setting->getSettingMeta('site_top_name_'.$language)}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label>NThông tin trang nâng cấp tài khoản ( Bên phải )</label>
+                            <label>Thông tin trang nâng cấp tài khoản ( Bên phải )</label>
                             <textarea id="editor2" name="site_footer_info_1_{{$language}}"
                                       class="form-control makeMeRichTextarea" rows="3"
                                       placeholder="Nội dung mục chân trang">{{$setting->getSettingMeta('site_footer_info_1_'.$language)}}</textarea>
@@ -76,6 +76,14 @@
                                       placeholder="Mô tả website">{{$setting->getSettingMeta('site_description_'.$language)}}</textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label>Số tiền nâng cấp tài khoản</label>
+                            <input class="form-control"
+                                   name="update_amount_setting"
+                                   type="text"
+                                   value="{{$setting->getSettingMeta('update_amount_setting')}}"
+                                   placeholder="599000">
+                        </div>
 
                         <div class="form-group">
                             <label>Số hotline</label>

@@ -12,5 +12,5 @@
 @endphp
 @if ($permissions->contains('name','project_index'))
 <li class="{{in_array(Route::currentRouteName(), $listRoute) ? 'active' : '' }}">
-    <a href="{{route('wadmin::project.index.get',['post_type'=>'project'])}}"><i class="fa fa-rocket"></i> <span>Thông tin trang chủ</span></a></li>
+    <a href="{{route('wadmin::project.index.get',['post_type'=>'project'])}}"><i class="fa fa-rocket"></i> <span>Thông tin ngân hàng </span></a></li>
 @endif

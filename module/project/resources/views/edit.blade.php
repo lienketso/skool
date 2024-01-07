@@ -1,16 +1,9 @@
 @extends('wadmin-dashboard::master')
 
 @section('js')
-    <script type="text/javascript" src="{{asset('admin/libs/ckeditor/ckeditor.js')}}"></script>
-    <script type="text/javascript" src="{{asset('admin/libs/ckfinder/ckfinder_v1.js')}}"></script>
+
 @endsection
 @section('js-init')
-    <script type="text/javascript">
-        CKEDITOR.replace( 'editor1', {
-            filebrowserUploadUrl: '{{route('ckeditor.upload',['_token' => csrf_token() ])}}', //route dashboard/upload
-            filebrowserUploadMethod: 'form'
-        });
-    </script>
 
 @endsection
 
@@ -19,7 +12,7 @@
     <ol class="breadcrumb breadcrumb-quirk">
         <li><a href="{{route('wadmin::dashboard.index.get')}}"><i class="fa fa-home mr5"></i> Dashboard</a></li>
         <li><a href="{{route('wadmin::project.index.get',['post_type'=>'project'])}}">Thông tin</a></li>
-        <li class="active">Sửa thông tin</li>
+        <li class="active">Sửa thông tin ngân hàng</li>
     </ol>
 
     <div class="row">
@@ -38,44 +31,69 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h4 class="panel-title">Sửa thông tin</h4>
-                        <p>Bạn cần nhập đầy đủ các thông tin để sửa thông tin</p>
+                        <p>Bạn cần nhập đầy đủ các thông tin để sửa ngân hàng mới</p>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label>Tiêu đề</label>
+                            <label>Mã ngân hàng</label>
+                            <select id="" name="bank_id" class="form-control" style="width: 100%" data-placeholder="Trạng thái">
+                                <option
+                                    value="Techcombank"
+                                    {{ ($data->bank_id =='Techcombank' ) ? 'selected' : ''}}>Techcombank</option>
+                                <option value="BIDV" {{ ($data->bank_id  =='BIDV' ) ? 'selected' : ''}}>BIDV</option>
+                                <option value="VietinBank" {{ ($data->bank_id  =='VietinBank' ) ? 'selected' : ''}}>VietinBank</option>
+                                <option value="ACB" {{ ($data->bank_id =='ACB' ) ? 'selected' : ''}}>ACB</option>
+                                <option value="VietcomBank" {{ ($data->bank_id =='VietcomBank' ) ? 'selected' : ''}}>VietcomBank</option>
+                                <option value="VPBank" {{ ($data->bank_id =='VPBank' ) ? 'selected' : ''}}>VPBank</option>
+                                <option value="Agribank" {{ ($data->bank_id  =='Agribank' ) ? 'selected' : ''}}>Agribank</option>
+                                <option value="Sacombank" {{ ($data->bank_id  =='Sacombank' ) ? 'selected' : ''}}>Sacombank</option>
+                                <option value="VIB" {{ ($data->bank_id =='VIB')  ? 'selected' : ''}}>VIB</option>
+                                <option value="TPBank" {{ ($data->bank_id =='TPBank' ) ? 'selected' : ''}}>TP Bank</option>
+                                <option value="MBBank" {{ ($data->bank_id =='MBBank' ) ? 'selected' : ''}}>MB Bank</option>
+                                <option value="DongABank" {{ ($data->bank_id =='DongABank' ) ? 'selected' : ''}}>DongA Bank</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên tài khoản</label>
+                            <input class="form-control"
+                                   name="account_name"
+                                   type="text"
+                                   value="{{$data->account_name}}"
+                                   placeholder="VD : NGUYEN THANH AN">
+                        </div>
+                        <div class="form-group">
+                            <label>Tên ngân hàng</label>
                             <input class="form-control"
                                    name="name"
                                    type="text"
                                    value="{{$data->name}}"
-                                   placeholder="Tiêu đề bài viết">
+                                   placeholder="VD : Ngân hàng Á Châu">
                         </div>
+
+
                         <div class="form-group">
-                            <label>Mô tả</label>
-                            <textarea id="" name="description" class="form-control" rows="3" placeholder="Mô tả ngắn">{{$data->description}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Nội dung bài viết</label>
-                            <textarea id="editor1" name="content" class="form-control makeMeRichTextarea" rows="3" placeholder="Nội dung bài viết">{{$data->content}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Tags (Từ khóa)</label>
-                            <input class="form-control" name="tags" value="{{$data->tags}}" type="text" placeholder="Từ khóa liên quan">
-                        </div>
-                        <div class="form-group">
-                            <label>Thẻ Meta title</label>
+                            <label>Số tài khoản</label>
                             <input class="form-control"
-                                   name="meta_title"
+                                   name="account_no"
                                    type="text"
-                                   value="{{$data->meta_title}}"
-                                   placeholder="">
+                                   value="{{$data->account_no}}"
+                                   placeholder="VD: 19032866302014">
                         </div>
                         <div class="form-group">
-                            <label>Thẻ meta description</label>
-                            <textarea id="" name="meta_desc" class="form-control" rows="3" placeholder="Thẻ Meta description">{{$data->meta_desc}}</textarea>
+                            <label>Kiểu hiển thị QR</label>
+                            <select id="" name="template" class="form-control" style="width: 100%" data-placeholder="Trạng thái">
+                                <option
+                                    value="print"
+                                    {{ ($data->template =='print' ) ? 'selected' : ''}}>Bao gồm : Mã QR, các logo và đầy đủ thông tin chuyển khoản</option>
+                                <option value="qr_only" {{ ($data->template =='qr_only' ) ? 'selected' : ''}}>Trả về ảnh QR đơn giản, chỉ bao gồm QR</option>
+                                <option value="compact" {{ ($data->template =='compact' ) ? 'selected' : ''}}>QR kèm logo VietQR, Napas, ngân hàng</option>
+                                <option value="compact2" {{ ($data->template =='compact2' ) ? 'selected' : ''}}>Bao gồm : Mã QR, các logo , thông tin chuyển khoản</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Lưu lại</button>
+                            <button class="btn btn-primary">Lưu lại</button>
+                            <button class="btn btn-success" name="continue_post" value="1">Lưu và tiếp tục thêm</button>
                         </div>
                     </div>
                 </div><!-- panel -->
@@ -92,33 +110,18 @@
                     </div>
                     <div class="panel-body">
 
-                        <div class="form-group">
-                            <label>Vị trí hiển thị</label>
-                            <select id="" name="display" class="form-control" style="width: 100%" data-placeholder="Trạng thái">
-                                <option value="0" {{ ($data->display==0) ? 'selected' : ''}}>Không chọn</option>
-                                <option value="1" {{ ($data->display==1) ? 'selected' : ''}}>Trang chủ</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Trạng thái</label>
-                            <select id="" name="status" class="form-control" style="width: 100%" data-placeholder="Trạng thái">
-                                <option value="active" {{ ($data->status=='active') ? 'selected' : ''}}>Hiển thị</option>
-                                <option value="disable" {{ ($data->status=='disable') ? 'selected' : ''}}>Tạm ẩn</option>
-                            </select>
-                        </div>
 
-                        <div class="form-group mb-3">
-                            <label>Ảnh đại diện</label>
-                            <div class="custom-file">
-                                <input type="file" name="thumbnail" value="" class="custom-file-input" id="inputGroupFile01" >
-                                <div class="thumbnail_w" style="padding-top: 10px">
-                                    <img src="{{($data->thumbnail!='') ? upload_url($data->thumbnail) : public_url('admin/themes/images/no-image.png')}}" width="100">
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label>Thứ tự hiển thị</label>
+                            <input class="form-control"
+                                   name="sort_order"
+                                   type="number"
+                                   value="{{$data->sort_order}}"
+                                   placeholder="">
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Lưu lại</button>
+                            <button class="btn btn-primary">Lưu lại</button>
                             <button class="btn btn-success" name="continue_post" value="1">Lưu và tiếp tục thêm</button>
                         </div>
 

@@ -15,6 +15,7 @@ use Post\Repositories\PostRepository;
 use Product\Models\ProductMark;
 use Product\Repositories\CatproductRepository;
 use Product\Repositories\ProductRepository;
+use Project\Models\Banks;
 use Users\Models\Users;
 
 class GroupController extends BaseController
@@ -259,7 +260,8 @@ class GroupController extends BaseController
 
 
     public function activeGroup(){
-        return view('frontend::group.members.active');
+        $bankList = Banks::query()->orderBy('sort_order','asc')->get();
+        return view('frontend::group.members.active',compact('bankList'));
     }
 
 

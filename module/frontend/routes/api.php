@@ -20,3 +20,5 @@ Route::post('like-post-group','ApiController@likePost')->name('ajax-like-post-gr
 Route::post('comment-post-group','ApiController@commentPost')->name('ajax-comment-post-group');
 //like comment
 Route::post('like-comment-group','ApiController@likeComment')->name('ajax-comment-like-group');
+//change bank
+Route::post('get-bank-item','ApiController@getBankItem')->name('ajax-get-bank-item');
