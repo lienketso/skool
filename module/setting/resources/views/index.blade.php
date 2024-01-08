@@ -164,9 +164,9 @@
                             <label>Ảnh logo</label>
                             <div class="input-group col-xs-12" style="display: flex">
                                 <input type="text" name="site_logo" value="{{$setting->getSettingMeta('site_logo')}}"
-                                       id="ckfinder-input-2" class="form-control file-upload-info" placeholder="Upload Image">
+                                       id="ckfinder-input-1" class="form-control file-upload-info" placeholder="Upload Image">
                                 <span class="input-group-append">
-								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-2"  type="button">Chọn ảnh</button>
+								<button class="file-upload-browse btn btn-primary" id="ckfinder-popup-1"  type="button">Chọn ảnh</button>
 							</span>
                             </div>
                             <div class="thumbnail_w" style="padding-top: 10px">

@@ -66,13 +66,6 @@ class SettingController extends BaseController
 
     public function postIndex(Request $request){
         $data = $request->except('_token');
-
-//        if($request->hasFile('site_logo')){
-//            $image = $request->site_logo;
-//            $path = date('Y').'/'.date('m').'/'.date('d');
-//            $data['site_logo'] = $path.'/'.$image->getClientOriginalName();
-//            $image->move('upload/'.$path,$image->getClientOriginalName());
-//        }
         $data['site_logo'] = replace_thumbnail($data['site_logo']);
         $this->saveSetting($data);
         return redirect()->back()->with('edit','Sửa cấu hình thành công !');
