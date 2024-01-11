@@ -34,7 +34,9 @@
 
                     <div class="content-active-group">
                         <div class="active-left-group">
-                            <a href="{{route('frontend::home')}}"><img src="{{upload_url($setting['site_logo'])}}" alt="Triki việt nam"></a>
+                            <a class="logo-active" href="{{route('frontend::home')}}">
+                                <img src="{{upload_url($setting['site_logo'])}}" alt="Triki việt nam">
+                            </a>
 
                             <div class="box-list-icon-group">
                                {!! $setting['site_top_name_vn'] !!}
