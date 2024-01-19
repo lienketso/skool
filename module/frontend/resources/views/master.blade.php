@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Furniture Shop Html Template">
+    <meta name="description" content="Triki là một phần cộng đồng, một phần kinh doanh, một phần học tập. Giúp bạn học tập được nhiều hơn, cùng đăng nhập và trải nghiệm">
     <meta name="author" content="">
-    <meta name="generator" content="Jekyll">
+    <meta name="generator" content="Lienketso">
     <title>{{(isset($meta_title)) ? $meta_title : $setting['site_name_'.$lang]}}</title>
 
     <link rel="stylesheet" href="{{asset('frontend/assets/vendors/fontawesome-pro-5/css/all.css')}}">
@@ -26,7 +26,7 @@
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="{{(isset($meta_title)) ? $meta_title : $setting['site_name_'.$lang]}}">
     <meta name="twitter:description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_'.$lang]}}">
-    <meta name="twitter:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : $setting['site_logo']}}">
+    <meta name="twitter:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : upload_url($setting['site_logo'])}}">
 
     <meta name="description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_'.$lang]}}" />
     <link rel="canonical" href="{{domain_url()}}" />
@@ -35,7 +35,7 @@
     <meta property="og:title" content="{{(isset($meta_title)) ? $meta_title : $setting['site_name_'.$lang]}}" />
     <meta property="og:description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_'.$lang]}}" />
     <meta property="og:url" content="{{(isset($meta_url)) ? $meta_url : domain_url()}}" />
-    <meta property="og:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : $setting['site_logo']}}" />
+    <meta property="og:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : upload_url($setting['site_logo'])}}" />
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
