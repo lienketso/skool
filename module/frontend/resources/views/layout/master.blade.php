@@ -6,22 +6,22 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{(isset($meta_title)) ? $meta_title : $setting['site_name_'.$lang]}}</title>
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_'.$lang]}}">
+    <meta name="description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_home']}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="{{(isset($meta_title)) ? $meta_title : $setting['site_name_'.$lang]}}">
-    <meta name="twitter:description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_'.$lang]}}">
-    <meta name="twitter:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : $setting['site_logo']}}">
+    <meta name="twitter:description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_home']}}">
+    <meta name="twitter:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : upload_url($setting['site_logo'])}}">
 
     <link rel="canonical" href="{{domain_url()}}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{(isset($meta_title)) ? $meta_title : $setting['site_name_'.$lang]}}" />
-    <meta property="og:description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_'.$lang]}}" />
+    <meta property="og:description" content="{{(isset($meta_desc)) ? $meta_desc : $setting['site_description_home']}}" />
     <meta property="og:url" content="{{(isset($meta_url)) ? $meta_url : domain_url()}}" />
-    <meta property="og:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : $setting['site_logo']}}" />
+    <meta property="og:image" content="{{(isset($meta_thumbnail)) ? $meta_thumbnail : upload_url($setting['site_logo'])}}" />
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

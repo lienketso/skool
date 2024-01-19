@@ -59,6 +59,11 @@
                                    placeholder="Tên website">
                         </div>
                         <div class="form-group">
+                            <label>Mô tả trang web</label>
+                            <textarea id="" name="site_description_home" class="form-control" rows="3"
+                                      placeholder="Mô tả website">{{$setting->getSettingMeta('site_description_home')}}</textarea>
+                        </div>
+                        <div class="form-group">
                             <label>Thông tin trang nâng cấp tài khoản ( Bên trái )</label>
                                     <textarea id="editor1" name="site_top_name_{{$language}}"
                                       class="form-control makeMeRichTextarea" rows="3"
