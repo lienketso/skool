@@ -254,10 +254,33 @@ class GroupController extends BaseController
                 $permissionType = $userGroup->permission;
             }
         }
-
         return view('frontend::group.members.index',compact('data','popularMember','myMember','listMember','countAdmin','permissionType'));
     }
 
+    public function addAdminToGroup(Request $request){
+        $user_id = $request->user_id;
+        $group_id = $request->group;
+        try {
+            $user = Users::query()->find($user_id);
+            $user->groups()->sync([$group_id=>['permission'=>'admin']]);
+            return redirect()->back()->with(['success'=>'Thêm vai trò admin nhóm thành công !']);
+        }catch (\Exception $e){
+            return redirect()->back()->with(['errors'=>$e->getMessage()]);
+        }
+
+    }
+
+    public function removeAdminGroup(Request $request){
+        $user_id = $request->user_id;
+        $group_id = $request->group;
+        try {
+            $user = Users::query()->find($user_id);
+            $user->groups()->sync([$group_id=>['permission'=>'member']]);
+            return redirect()->back()->with(['success'=>'Xóa vai trò admin nhóm thành công !']);
+        }catch (\Exception $e){
+            return redirect()->back()->with(['errors'=>$e->getMessage()]);
+        }
+    }
 
     public function activeGroup(){
         $bankList = Banks::query()->orderBy('sort_order','asc')->get();

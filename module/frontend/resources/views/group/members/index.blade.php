@@ -1,4 +1,75 @@
 @extends('frontend::master')
+
+@section('css')
+    <link rel="stylesheet" href="{{asset('admin/libs/confirm/jquery-confirm.css')}}" >
+@endsection
+@section('js')
+    <script src="{{asset('admin/libs/confirm/jquery-confirm.js')}}"></script>
+@endsection
+@section('js-init')
+    <script type="text/javascript">
+        //xác nhận thêm admin
+        $('.add-to-admin').on('click', function(e){
+            e.preventDefault();
+            let _this = $(e.currentTarget);
+            let url = _this.attr('data-url');
+            let member = _this.attr('data-member');
+            $.confirm({
+                title: 'Xác nhận admin nhóm',
+                content: 'Bạn có chắc chắn muốn người dùng <strong>'+member+'</strong> làm admin nhóm của bạn không ?',
+                autoClose: 'cancelAction|10000',
+                escapeKey: 'cancelAction',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-red',
+                        text: 'Xác nhận ngay',
+                        action: function(){
+                            location.href = url;
+                        }
+                    },
+                    cancelAction: {
+                        text: 'Hủy',
+                        action: function(){
+                            $.alert('Đã hủy thêm admin nhóm !');
+                        }
+                    }
+                }
+            });
+        });
+
+
+        //Xác nhận xóa admin
+        $('.remove-admin').on('click', function(e) {
+            e.preventDefault();
+            let _this = $(e.currentTarget);
+            let member = _this.attr('data-member');
+            let url = _this.attr('data-url');
+            $.confirm({
+                title: 'Gỡ bỏ admin nhóm',
+                content: 'Bạn có chắc chắn muốn người dùng <strong>'+member+'</strong> thôi làm admin nhóm của bạn không ?',
+                autoClose: 'cancelAction|10000',
+                escapeKey: 'cancelAction',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-red',
+                        text: 'Xác nhận ngay',
+                        action: function () {
+                            location.href = url;
+                        }
+                    },
+                    cancelAction: {
+                        text: 'Hủy',
+                        action: function () {
+                            $.alert('Đã hủy hành động !');
+                        }
+                    }
+                }
+            });
+
+        });
+
+    </script>
+@endsection
 @section('content')
     <div class="group-wrapper">
     @include('frontend::group.header')
@@ -14,10 +85,22 @@
                                 </div>
                                 <div class="right-member"></div>
                             </div>
+                            <div class="alert-heading-page">
+                                @if (session('errors'))
+                                    <div class="alert alert-info">{{session('errors')}}</div>
+                                @endif
+                                @if (session('create'))
+                                    <div class="alert alert-success">{{session('success')}}</div>
+                                @endif
+                            </div>
                             <div class="detail-list-member">
                                 {{--member item--}}
                                 @if($listMember)
                                     @foreach($listMember as $d)
+                                        @php
+                                            $memberGroup = \Groups\Models\GroupUser::where('user_id',$d->id)
+                                            ->where('group_id',$data->id)->first();
+                                        @endphp
                                     <div class="member-item">
                                         <div class="img-member-g">
                                             <a href="#">
@@ -30,10 +113,25 @@
                                             <p class="bio-member">{{ $d->bio }}</p>
                                             <p class="member-online-g"><i class="fa fa-dot-circle"></i> Đang online</p>
                                             <p class="calender-member-g"><i class="fa fa-calendar"></i> Tham gia lúc {{format_date($d->created_at)}}</p>
-{{--                                            <div class="add-member-admin">--}}
-{{--                                                <button class="add-to-admin" type="button"><i class="fa fa-user"></i> Chọn làm admin</button>--}}
-{{--                                                <button class="remove-admin" type="button"><i class="fa fa-ban"></i> Thôi làm admin</button>--}}
-{{--                                            </div>--}}
+                                            @if(\Illuminate\Support\Facades\Auth::check())
+                                            <div class="add-member-admin">
+                                            @if($memberGroup && $memberGroup->permission=='member')
+                                                <button class="add-to-admin"
+                                                        data-member="{{$d->full_name}}"
+                                                        data-url="{{route('frontend::member.add-admin-group',['user_id'=>$d->id,'group'=>$data->id])}}"
+                                                        type="button"><i class="fa fa-user"></i> Chọn làm admin</button>
+                                                @else
+                                                    <strong class="member-is-admin"><i class="fa fa-check-circle"></i> Là admin</strong>
+                                                    @if($data->admin_id==$myMember->id)
+                                                        <button class="remove-admin"
+                                                                data-member="{{$d->full_name}}"
+                                                                data-url="{{route('frontend::member.remove-admin-group',['user_id'=>$d->id,'group'=>$data->id])}}"
+                                                                type="button"><i class="fa fa-ban"></i> Thôi làm admin</button>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            @endif
+
                                         </div>
                                     </div>
                                     @endforeach

@@ -1442,10 +1442,15 @@ input[type=file]::file-selector-button:hover {
 .add-member-admin button.add-to-admin{
     border: 1px solid #1e7e34;
     color: #1e7e34;
+    margin-right: 15px;
 }
 .add-member-admin button.remove-admin{
     border: 1px solid #c0392b;
     color: #c0392b;
+}
+.member-is-admin{
+    color: lightseagreen;
+    margin-right: 20px;
 }
 .list-comment-post{
     padding-top: 20px;

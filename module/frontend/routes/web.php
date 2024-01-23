@@ -37,6 +37,14 @@ Route::group(['prefix'=>'member'],function(Router $router){
         ->name('frontend::member.change-password.get')->middleware('auth');
     $router->post('change-password','MemberController@postChangePassword')
         ->name('frontend::member.change-password.post')->middleware('auth');
+    //add admin to group route
+    $router->get('add-admin-group','GroupController@addAdminToGroup')
+        ->name('frontend::member.add-admin-group')
+        ->middleware('auth');
+    //remove admin group route
+    $router->get('remove-admin-group','GroupController@removeAdminGroup')
+        ->name('frontend::member.remove-admin-group')
+        ->middleware('auth');
 });
 
 Route::group(['prefix'=>'group'],function(Router $router){
