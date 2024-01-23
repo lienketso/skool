@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('create-newsletter','HomeController@createNewletter')->name('ajax.newsletter.get');
 Route::post('create-post-group','ApiController@apiPostGroup')->name('ajax.create.post-group.get');
+Route::post('edit-post-group','ApiController@apiEditPostGroup')->name('ajax.edit.post-group.get');
 Route::post('upload-media-file','ApiController@UploadFile')->name('ajax.upload-media-file.post');
 //create category
 Route::post('create-new-category','ApiController@apiCreateCategory')->name('ajax-create-category');

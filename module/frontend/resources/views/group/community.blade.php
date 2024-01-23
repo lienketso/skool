@@ -77,6 +77,48 @@
         }
 
     });
+    //edit post
+    $('.btn-w-post-edit').on('click',function (e){
+        e.preventDefault();
+        let _this = $(e.currentTarget);
+        let post = _this.attr('data-post');
+        let postid ='edit'+post;
+        var editor = CKEDITOR.instances[postid];
+        let name = $('input[name="ename"]').val();
+        let content = editor.getData();
+        let category = $('input[name="ecategory"]').val();
+        let url = "{{route('ajax.edit.post-group.get')}}";
+        let mess = '';
+        if(name.length<=0){
+            mess += 'err';
+            $('.span_name').text('Vui lòng nhập tiêu đề');
+        }else{
+            mess = '';
+            $('.span_name').text('')
+        }
+        //ajax post
+        if(mess.length <=0 ) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: {post,name,content,category},
+                success: function (result) {
+                    console.log(result);
+                    $('input[name="name"]').val('');
+                    $('textarea[name="content"]').val('');
+                    $('#EditModal'+post).modal('hide');
+                    window.location.reload();
+                },
+                error: function (data, status) {
+                    $(".btn-w-post").html("Có lỗi xảy ra !");
+                    console.log(data);
+                }
+            });
+        }
+
+    });
+
     //upload file
     $( document ).ready(function() {
         $("#upload-button").on("click", function() {

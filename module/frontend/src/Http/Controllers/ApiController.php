@@ -60,6 +60,17 @@ class ApiController extends BaseController
         }
     }
 
+    public function apiEditPostGroup(Request $request){
+        try{
+            $input = $request->all();
+            $postid = $request->post;
+            $data = $this->post->update($input,$postid);
+            return response()->json($data);
+        }catch (\Exception $exception){
+            return response()->json($exception->getMessage());
+        }
+    }
+
     public function UploadFile(Request $request){
         $userAuth = Auth::user();
         $form_file = 'customFile';

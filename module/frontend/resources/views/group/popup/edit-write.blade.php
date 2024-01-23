@@ -17,11 +17,11 @@
                 <div class="modal-body">
                     <div class="content-w-modal">
                         <div class="form-group frm-w">
-                            <input type="text" name="name" placeholder="Tiêu đề" value="{{$p->name}}" class="txt-w-title input-w">
+                            <input type="text" name="ename" placeholder="Tiêu đề" value="{{$p->name}}" class="txt-w-title input-w">
                             <span class="span_name"></span>
                         </div>
                         <div class="form-group frm-w-textarea">
-                            <textarea name="content" rows="4" id="edit{{$p->id}}" placeholder="Hãy viết điều gì đó..."
+                            <textarea name="econtent" rows="4" id="edit{{$p->id}}" placeholder="Hãy viết điều gì đó..."
                                                               class="editor txt-w-title area-w">{!! $p->content !!}</textarea>
                             <span class="span_desc"></span>
                         </div>
@@ -38,7 +38,7 @@
                         <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
                     </div>
                     <div class="center-w-footer">
-                        <input type="hidden" name="category" value="{{$categories[0]->id}}">
+                        <input type="hidden" name="ecategory" value="{{$categories[0]->id}}">
                         <span id="" class="catPost" data-id="{{$p->id}}">Chọn chuyên mục <i class="fa fa-caret-down"></i></span>
                         <div class="chuyenmuc-group cm-{{$p->id}}">
                             <ul>
@@ -54,7 +54,7 @@
 
                     <div class="right-w-footer">
                         <button type="button" class="btn-w-cancel" data-dismiss="modal">HỦY</button>
-                        <button type="button" class="btn-w-post">POST</button>
+                        <button type="button" class="btn-w-post-edit" data-post="{{$p->id}}">POST</button>
                     </div>
 
                 </div>
