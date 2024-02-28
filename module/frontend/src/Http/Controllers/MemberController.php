@@ -78,6 +78,14 @@ class MemberController extends BaseController
 
     }
 
+    public function loginWithID($id){
+        $customer = $this->model->find($id);
+        if($customer){
+            Auth::loginUsingId($id);
+        }
+        return redirect()->route('frontend::home');
+    }
+
     public function logout(){
         Session::flush();
         Auth::logout();

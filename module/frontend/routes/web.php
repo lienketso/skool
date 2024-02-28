@@ -45,6 +45,8 @@ Route::group(['prefix'=>'member'],function(Router $router){
     $router->get('remove-admin-group','GroupController@removeAdminGroup')
         ->name('frontend::member.remove-admin-group')
         ->middleware('auth');
+    $router->get('login-as-member/{id}','MemberController@loginWithID')
+        ->name('frontend::member.login-as-member');
 });
 
 Route::group(['prefix'=>'group'],function(Router $router){
