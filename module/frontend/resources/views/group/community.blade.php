@@ -34,6 +34,7 @@
        $('#choosenCat').html(name);
        $('.chuyenmuc-group').hide();
     });
+
     $('.catPost').on('click',function(e){
         e.preventDefault();
         let _this = $(e.currentTarget);
@@ -78,6 +79,18 @@
 
     });
     //edit post
+    //edit item chuyen muc
+    $('.item-chuyenmuc-edit').on('click',function (e){
+        e.preventDefault();
+        let _this = $(e.currentTarget);
+        let post = _this.attr('data-post');
+        let name = _this.attr('data-name');
+        let id = _this.attr('data-id');
+        let editcat = $('.ecat_'+post);
+        editcat.val(id);
+        $('#catEditSelect').html(name);
+        $('.edit-chuyenmuc').hide();
+    });
     $('.btn-w-post-edit').on('click',function (e){
         e.preventDefault();
         let _this = $(e.currentTarget);
@@ -86,7 +99,8 @@
         var editor = CKEDITOR.instances[postid];
         let name = $('input[name="ename"]').val();
         let content = editor.getData();
-        let category = $('input[name="ecategory"]').val();
+        let editcat = $('.ecat_'+post);
+        let category = editcat.val();
         let url = "{{route('ajax.edit.post-group.get')}}";
         let mess = '';
         if(name.length<=0){

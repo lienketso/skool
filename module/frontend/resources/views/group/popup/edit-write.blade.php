@@ -38,12 +38,12 @@
                         <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
                     </div>
                     <div class="center-w-footer">
-                        <input type="hidden" name="ecategory" value="{{$categories[0]->id}}">
-                        <span id="" class="catPost" data-id="{{$p->id}}">Chọn chuyên mục <i class="fa fa-caret-down"></i></span>
-                        <div class="chuyenmuc-group cm-{{$p->id}}">
+                        <input type="hidden" name="ecategory_{{$p->id}}" class="ecat_{{$p->id}}" value="{{$categories[0]->id}}">
+                        <span id="catEditSelect" class="catPost" data-id="{{$p->id}}">{{($p->chuyenmuc()->exists()) ? $p->chuyenmuc->name : 'Chọn chuyên mục'}} <i class="fa fa-caret-down"></i></span>
+                        <div class="chuyenmuc-group edit-chuyenmuc cm-{{$p->id}}">
                             <ul>
                                 @foreach($categories as $cat)
-                                    <li class="item-chuyenmuc" data-name="{{$cat->name}}" data-id="{{$cat->id}}">
+                                    <li class="item-chuyenmuc-edit" data-name="{{$cat->name}}" data-id="{{$cat->id}}" data-post="{{$p->id}}">
                                         <p><strong>{{$cat->name}}</strong></p>
                                         <p>{{$cat->description}}</p>
                                     </li>
