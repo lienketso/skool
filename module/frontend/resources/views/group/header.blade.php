@@ -18,7 +18,7 @@
 </div>
 </div>
 
-<div class="header-group">
+<div class="header-group" id="headerFix">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4">
@@ -55,12 +55,14 @@
             <div class="col-lg-2">
                 @if($userMem)
                 <div class="notifi-group">
-                    <a href="#">
-                        <i class="fa fa-bell"></i>
-                        <span>0</span>
-                    </a>
-                    <a href="{{route('frontend::member.profile.get')}}" data-toggle="tooltip" title="Xem profile">
-                        <i class="fa fa-user"></i>
+{{--                    <a href="#">--}}
+{{--                        <i class="fa fa-bell"></i>--}}
+{{--                        <span class="number-noti">0</span>--}}
+{{--                    </a>--}}
+                    <a class="avatar-mama" href="{{route('frontend::member.profile.get')}}" data-toggle="tooltip" title="Xem profile">
+                        <span class="icon-write MuiAvatar-root">
+                            <img src="{{(!is_null($userMem->thumbnail)) ? upload_url($userMem->thumbnail) : asset('frontend/assets/images/avatar.png')}}">
+                        </span>
                     </a>
                 </div>
                 @endif

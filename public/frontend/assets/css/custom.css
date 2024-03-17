@@ -171,7 +171,7 @@ a, a:hover{
     padding: 0 10px;
     position: relative;
 }
-.notifi-group a span{
+.notifi-group a span.number-noti{
     position: absolute;
     width: 23px;
     height: 23px;
@@ -182,6 +182,14 @@ a, a:hover{
     color: #fff;
     font-size: 14px;
     text-align: center;
+}
+.avatar-mama span.icon-write img {
+    color: transparent;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    text-align: center;
+    text-indent: 10000px;
 }
 .menu-group{
     padding-top: 20px;
@@ -1771,6 +1779,9 @@ iframe .ytp-chrome-top{
     border: 1px solid #dedede;
     border-radius: 5px;
 }
+.header-group{
+    z-index: 9999;
+}
 @media(min-width: 768px){
     .form-active-group{
         width: 600px;
@@ -1813,6 +1824,17 @@ iframe .ytp-chrome-top{
     }
     .list-write-content{
         padding-top: 50px;
+    }
+    /* The sticky class is added to the header with JS when it reaches its scroll position */
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #fff;
+    }
+    /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+    .sticky + .content {
+        padding-top: 102px;
     }
 }
 @media(max-width: 767px){
@@ -1874,3 +1896,5 @@ iframe .ytp-chrome-top{
         width: 20%;
     }
 }
+
+
