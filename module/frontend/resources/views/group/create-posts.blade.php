@@ -229,7 +229,7 @@
                             @if($productFirst)
                                 <h2 class="title-module-single">{{$productFirst->name}}</h2>
                                 <div class="content-detail-module">
-
+                                    @if(!is_null($productFirst->youtube) || !is_null($productFirst->vimeo))
                                     <div class="video-single-post">
                                         @if($productFirst->video_type=='youtube')
                                         <iframe width="100%" height="400"
@@ -244,6 +244,7 @@
 
                                         @endif
                                     </div>
+                                    @endif
 
                                     {!! $productFirst->content !!}
                                 </div>

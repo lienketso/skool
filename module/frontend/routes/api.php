@@ -15,6 +15,8 @@ Route::post('edit-category-parent','ApiController@apiEditCategoryParent')->name(
 Route::post('upload-edit-category-parent','ApiController@uploadEditFileCategory')->name('ajax-edit-file-category-parent');
 //Đánh dấu đã đọc
 Route::post('mark-as-read','ApiController@markAsRead')->name('ajax-mark-as-read-module');
+// bỏ đánh dấu
+Route::post('mark-as-unread','ApiController@markAsUnread')->name('ajax-mark-as-unread-module');
 //like post group
 Route::post('like-post-group','ApiController@likePost')->name('ajax-like-post-group');
 //comment post

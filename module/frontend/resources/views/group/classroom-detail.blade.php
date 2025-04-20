@@ -31,6 +31,29 @@
 
         });
 
+        //unread
+        $('.reader').on('click', function (e) {
+            e.preventDefault();
+            let _this = $(e.currentTarget);
+            let id = _this.attr('data-id');
+            let url = _this.attr('data-unread');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: { id },
+                success: function (result) {
+                    _this.removeClass('reader');
+                    _this.addClass('done-read');
+                    _this.attr('title', 'Chưa đọc');
+                    window.location.reload();
+                },
+                error: function (data, status) {
+                    console.log("Có lỗi xảy ra khi hủy đánh dấu đã đọc!", data);
+                }
+            });
+        });
 
     </script>
     <script type="text/javascript">
@@ -85,7 +108,11 @@
                                                     @if($child->product()->exists())
                                                     <ul class="list-child-category">
                                                         @foreach($child->product as $k=>$p)
-                                                        <li><a href="?age={{$p->age}}" class="{{($p->age==request('age')) ? 'active' : ''}}">{{$k+=1}}. {{$p->name}}</a></li>
+                                                        <li><a href="?age={{$p->age}}" class="{{($p->age==request('age')) ? 'active' : ''}}">{{$k+=1}}. {{$p->name}}</a>
+                                                            @if($marked && !is_null($marked))
+                                                                <span class="done-read"><i class="fa fa-check-circle"></i></span>
+                                                            @endif
+                                                        </li>
                                                         @endforeach
                                                     </ul>
                                                         @endif
@@ -102,6 +129,9 @@
                     </div>
                     <div class="col-lg-8">
                         <div class="content-single-class">
+                            @if(!$productI)
+                                <h4>Chưa có bài học nào được tạo !</h4>
+                            @else
                             <h2 class="title-single-class">
                                {{ ($productI) ? $productI->name : 'Null'}}
                                 @if(in_array(auth()->id(),$arrUsersChecked) || $infor->who==1)
@@ -109,27 +139,31 @@
                                       data-toggle="tooltip"
                                       title="{{(!$marked && is_null($marked)) ? 'Đánh dấu đã đọc' : 'Đã đọc'}}"
                                       data-url="{{route('ajax-mark-as-read-module')}}"
+                                      data-unread="{{route('ajax-mark-as-unread-module')}}"
                                 ><i class="fa fa-check-circle"></i></span>
                                 @endif
                             </h2>
+
                             <div class="detail-class-post">
                                 @if(in_array(auth()->id(),$arrUsersChecked) || $infor->who==1)
-                                <div class="video-single-post">
-{{--                                    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></div>--}}
-                                    @if($productI->video_type=='youtube' && $productI->youtube!='')
-                                        <iframe width="100%" height="400"
-                                                src="{!! parseVideos($productI->youtube) !!}?si=TNUHpReROl_eJVci&amp;controls=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-                                                allowfullscreen></iframe>
-                                    @endif
-                                    @if($productI->video_type=='vimeo' && $productI->vimeo!='')
-                                        <iframe src="{!! parseVideos($productI->vimeo) !!}"
-                                                width="100%" height="400" frameborder="0"
-                                                allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                                    @if(!is_null($productI->youtube) || !is_null($productI->vimeo))
+                                    <div class="video-single-post">
+    {{--                                    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></div>--}}
+                                        @if($productI->video_type=='youtube' && $productI->youtube!='')
+                                            <iframe width="100%" height="400"
+                                                    src="{!! parseVideos($productI->youtube) !!}?si=TNUHpReROl_eJVci&amp;controls=0"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                                                    allowfullscreen></iframe>
+                                        @endif
+                                        @if($productI->video_type=='vimeo' && $productI->vimeo!='')
+                                            <iframe src="{!! parseVideos($productI->vimeo) !!}"
+                                                    width="100%" height="400" frameborder="0"
+                                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
+                                        @endif
+                                    </div>
                                     @endif
-                                </div>
                                 {!! ($productI) ? $productI->content : 'Null' !!}
                                 @else
                                     <div class="lock-single-page">
@@ -142,6 +176,7 @@
                                     </div>
                                 @endif
                             </div>
+                            @endif
                         </div>
                     </div>
 

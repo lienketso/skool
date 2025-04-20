@@ -105,7 +105,11 @@ class GroupController extends BaseController
             $markpercent = $catPercent->mark_percent;
         }
         //check đã đọc
-        $marked = ProductMark::query()->where('product_id',$productI->id)->where('user_id',\auth()->id())->first();
+        $marked = '';
+        if(!is_null($request->get('age'))){
+            $marked = ProductMark::query()->where('product_id',$productI->id)->where('user_id',\auth()->id())->first();
+        }
+
         //lấy ra user đã được chấp thuận
         $arrUsersChecked = [];
         if($infor->userPivot()->exists()){

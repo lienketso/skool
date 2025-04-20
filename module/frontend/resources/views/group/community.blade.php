@@ -65,10 +65,10 @@
                 dataType: "json",
                 data: {name,content,category,user_post,group_id},
                 success: function (result) {
-                    console.log(result);
                     $('input[name="name"]').val('');
                     $('textarea[name="content"]').val('');
                     $('#writeModal').modal('hide');
+                    window.location.reload();
                 },
                 error: function (data, status) {
                     $(".btn-w-post").html("Có lỗi xảy ra !");
@@ -188,40 +188,110 @@
     });
 
     //comment post
-    $('.btnComment').on('click',function (e){
-       e.preventDefault();
-       let _this = $(e.currentTarget);
-       let user = _this.attr('data-user');
-       let post = _this.attr('data-post');
-       let parent = _this.attr('data-parent');
-       if(parent.length>0){
-           post += '_child_'+parent;
-       }
+    // $('.btnComment').on('click',function (e){
+    //    e.preventDefault();
+    //    let _this = $(e.currentTarget);
+    //    let user = _this.attr('data-user');
+    //    let post = _this.attr('data-post');
+    //    let parent = _this.attr('data-parent');
+    //    if(parent.length>0){
+    //        post += '_child_'+parent;
+    //    }
+    //
+    //    let comment = $('.comment_'+post).val();
+    //
+    //    let url = _this.attr('data-url');
+    //    if(comment.length<=0){
+    //        alert('Bạn chưa nhập nội dung');
+    //        $('.comment_'+post).focus();
+    //        return false;
+    //    }
+    //
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url,
+    //         dataType: "json",
+    //         data: {user,post,comment,parent},
+    //         success: function (result) {
+    //             let html = '<div class="item-comment-post"><div class="img-comment-post avtar-icon "><a href=""><img src="'+result.image+'"></a></div><div class="comment-text-post"><div class="omg-post-infor"><p class="name-comment">'+result.name+'</p><p>'+result.content+'</p></div><div class="button-reply-cm"><button type="button"><i class="fa fa-thumbs-up"></i>0</button><span class="reply_cm" data-id="'+result.id+'">Trả lời</span> </div></div></div>';
+    //             $('.list_com_'+post).append(html);
+    //             $('.comment_'+post).val('');
+    //            console.log(result);
+    //         },
+    //         error: function (data, status) {
+    //             console.log(data);
+    //         }
+    //     })
+    // });
 
-       let comment = $('.comment_'+post).val();
+    function handleCommentAction(_this) {
+        let user = _this.attr('data-user');
+        let post = _this.attr('data-post');
+        let parent = _this.attr('data-parent');
 
-       let url = _this.attr('data-url');
-       if(comment.length<=0){
-           alert('Bạn chưa nhập nội dung');
-           $('.comment_'+post).focus();
-           return false;
-       }
+        if (parent.length > 0) {
+            post += '_child_' + parent;
+        }
+
+        let comment = $('.comment_' + post).val();
+        let url = _this.attr('data-url');
+
+        if (comment.length <= 0) {
+            alert('Bạn chưa nhập nội dung');
+            $('.comment_' + post).focus();
+            return false;
+        }
 
         $.ajax({
             type: "POST",
             url: url,
             dataType: "json",
-            data: {user,post,comment,parent},
+            data: { user, post, comment, parent },
             success: function (result) {
-                let html = '<div class="item-comment-post"><div class="img-comment-post avtar-icon "><a href=""><img src="'+result.image+'"></a></div><div class="comment-text-post"><div class="omg-post-infor"><p class="name-comment">'+result.name+'</p><p>'+result.content+'</p></div><div class="button-reply-cm"><button type="button"><i class="fa fa-thumbs-up"></i>'+result.like_post+'</button><span class="reply_cm" data-id="'+result.id+'">Trả lời</span> </div></div></div>';
-                $('.list_com_'+post).append(html);
-                $('.comment_'+post).val('');
-               console.log(result);
+                let html = '<div class="item-comment-post"><div class="img-comment-post avtar-icon "><a href=""><img src="' + result.image + '"></a></div><div class="comment-text-post"><div class="omg-post-infor"><p class="name-comment">' + result.name + '</p><p>' + result.content + '</p></div><div class="button-reply-cm"><button type="button"><i class="fa fa-thumbs-up"></i>0</button><span class="reply_cm" data-id="' + result.id + '">Trả lời</span> </div></div></div>';
+                $('.list_com_' + post).append(html);
+                $('.comment_' + post).val('');
+                console.log(result);
             },
             error: function (data, status) {
                 console.log(data);
             }
-        })
+        });
+    }
+
+    // Sự kiện click nút
+    $('.btnComment').on('click', function (e) {
+        e.preventDefault();
+        let _this = $(e.currentTarget);
+        handleCommentAction(_this);
+    });
+
+    // Sự kiện nhấn Enter trong ô input
+    $('input[class^="comment_"]').on('keypress', function (e) {
+        if (e.which === 13 && !e.shiftKey) {
+            e.preventDefault();
+            let _this = $(this);
+            let classList = _this.attr('class');
+            let match = classList.match(/comment_(\S+)/);
+            if (match) {
+                let post = match[1];
+                let basePost = post.split('_child_')[0];
+                let parent = post.includes('_child_') ? post.split('_child_')[1] : "";
+
+                // Tìm đúng nút btnComment tương ứng với post và parent
+                let selector = '.btnComment[data-post="' + basePost + '"]';
+                if (parent !== "") {
+                    selector += '[data-parent="' + parent + '"]';
+                } else {
+                    selector += '[data-parent=""]';
+                }
+
+                let btn = $(selector).first(); // lấy nút đầu tiên khớp selector
+                if (btn.length) {
+                    handleCommentAction(btn);
+                }
+            }
+        }
     });
 
 //
@@ -341,7 +411,7 @@
                                                     <input type="file" id="upload-input" style="display: none">
                                                     <div class="left-w-footer">
                                                         <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
-{{--                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn link"><i class="fa fa-link"></i></span>--}}
+{{--                                                        <span data-toggle="tooltip" data-placement="top" title="Ghim bài viết">Ghim lên đầu</span>--}}
 {{--                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>--}}
                                                     </div>
                                                     <div class="center-w-footer">
@@ -358,6 +428,7 @@
                                                                 @endforeach
                                                             </ul>
                                                         </div>
+
                                                     </div>
 
                                                     <div class="right-w-footer">

@@ -207,8 +207,6 @@ class ApiController extends BaseController
             $updatePercent = (100/$countProduct);
             $user = \auth()->id();
 
-
-
             //update bảng product_mark sử dụng check đã đọc bài viết
             $marked = ProductMark::firstOrNew(['product_id'=>$id,'user_id'=>$user,'cat_id'=>$catProduct->parent]);
             $marked->save();
@@ -227,6 +225,61 @@ class ApiController extends BaseController
             return response()->json($e->getMessage());
         }
     }
+
+    //unread
+    public function markAsUnread(Request $request)
+    {
+        $id = $request->id;
+        try {
+            $product = $this->pro->find($id);
+            $product->freeship = 0;
+            $product->save();
+
+            $catProduct = $this->cat->find($product->cat_id);
+            $user = auth()->id();
+
+            // Xóa bản ghi đã đọc trong product_mark
+            ProductMark::where([
+                'product_id' => $id,
+                'user_id' => $user,
+                'cat_id' => $catProduct->parent
+            ])->delete();
+
+            // Đếm tổng số bài trong chương
+            $countProduct = $this->pro->scopeQuery(function ($q) use ($product, $catProduct) {
+                return $q->where('factory_id', $product->factory_id)
+                    ->where('chapter', $catProduct->parent);
+            })->count();
+
+            // Đếm lại số bài đã đánh dấu
+            $countMarked = ProductMark::where('cat_id', $catProduct->parent)
+                ->where('user_id', $user)
+                ->count();
+
+            $updatePercent = ($countProduct > 0) ? (100 / $countProduct) : 0;
+            $newPercent = $countMarked * $updatePercent;
+
+            $catPercent = CatPercent::firstOrNew([
+                'cat_id' => $catProduct->parent,
+                'user_id' => $user,
+                'group_id' => $product->factory_id
+            ]);
+
+            // Nếu còn bài đánh dấu thì cập nhật lại phần trăm
+            if ($countMarked > 0) {
+                $catPercent->mark_percent = $newPercent;
+                $catPercent->save();
+            } else {
+                // Không còn bài đã đọc → xoá luôn dòng nếu muốn
+                $catPercent->delete();
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'Đã hủy đánh dấu bài đọc']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
     //like post group
     public function likePost(Request $request){
         $id = $request->id;

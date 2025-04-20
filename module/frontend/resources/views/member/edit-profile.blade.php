@@ -6,8 +6,8 @@
                 <div class="col-lg-4">
                     <div class="sidebar-edit-profile">
                         <ul class="list-sidebar-profile">
+                            <li><a href="{{route('frontend::member.profile.get')}}">Quay về trang chủ</a></li>
                             <li><a class="active" href="{{route('frontend::member.profile.get')}}">Profile</a></li>
-                            <li><a href="#">Account</a></li>
                             <li><a href="{{route('frontend::member.change-password.get')}}">Đổi mật khẩu</a></li>
                         </ul>
                     </div>

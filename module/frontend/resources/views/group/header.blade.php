@@ -68,7 +68,7 @@
                 @endif
             </div>
         </div>
-        <div class="row">
+        <div class="row no-scroll-menu">
             <div class="col-lg-12">
                 <div class="menu-group">
                     <ul>
