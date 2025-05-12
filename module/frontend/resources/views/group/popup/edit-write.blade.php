@@ -33,9 +33,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="file" id="upload-input" style="display: none">
+                    <input type="file" id="upload-input-e" style="display: none" data-post="{{$p->id}}" >
+                    <input type="hidden" name="address" value="" id="videoInsert">
                     <div class="left-w-footer">
-                        <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
+                        <span data-toggle="tooltip" id="upload-button-e" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
+                        <span data-toggle="tooltip" data-placement="top" title="Chèn link"><i class="fa fa-link"></i></span>
+                        <span data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>
                     </div>
                     <div class="center-w-footer">
                         <input type="hidden" name="ecategory_{{$p->id}}" class="ecat_{{$p->id}}" value="{{$categories[0]->id}}">

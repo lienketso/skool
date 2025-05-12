@@ -53,6 +53,7 @@
     });
     $('.btn-w-post').on('click',function (){
         let name = $('input[name="name"]').val();
+        let address = $('#video-field').val();
         let content = tinymce.get('textareaDefault').getContent();
         let category = $('input[name="category"]').val();
         let user_post = $('input[name="user_post"]').val();
@@ -72,7 +73,7 @@
                 type: "POST",
                 url: url,
                 dataType: "json",
-                data: {name,content,category,user_post,group_id},
+                data: {name,content,category,user_post,group_id,address},
                 success: function (result) {
                     $('input[name="name"]').val('');
                     $('textarea[name="content"]').val('');
@@ -148,9 +149,13 @@
             $("#upload-input").click();
         });
 
-        $("#upload-input").on("change", function() {
+        $("#upload-input").on("change", function(e) {
+            e.preventDefault();
+            let _this = $(e.currentTarget);
             var file = this.files[0];
             let group_id = {{$data->id}};
+            let postId = _this.attr('data-post');
+            alert(postId); return false;
             var form_data = new FormData();
             form_data.append("customFile", file);
             form_data.append("group_id", group_id);
@@ -337,6 +342,47 @@
  });
 </script>
 
+    <script>
+        function extractYouTubeID(url) {
+            const match = url.match(/[?&]v=([^&]+)/);
+            return match ? match[1] : null;
+        }
+        // Mở popup
+        $('#open-insert-video').on('click', function (e) {
+            $('#video-popup').show();
+            $('#youtube-url').focus();
+        });
+        // Đóng popup
+        $('#close-video-popup').on('click', function () {
+            $('#video-popup').hide();
+        });
+        // Gửi AJAX khi nhấn chèn
+        // Nhấn "Chèn" sẽ thêm vào bài viết
+        $('#insert-video').on('click', function () {
+            const url = $('#youtube-url').val();
+            const videoId = extractYouTubeID(url);
+
+            if (!videoId) {
+                alert('Link video không hợp lệ!');
+                return;
+            }
+
+            const iframe = `<iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+
+            // Hiển thị video trên bài viết
+            $('#video-container').append(iframe);
+
+            // Ghi vào input hidden
+            let current = $('#video-field').val();
+            $('#video-field').val(videoId);
+
+            // Reset popup
+            $('#youtube-url').val('');
+            $('#video-preview').html('');
+            $('#video-popup').hide();
+        });
+    </script>
+
 @endsection
 
 @section('content')
@@ -410,18 +456,31 @@
                                                             <span class="span_desc"></span>
                                                         </div>
                                                         <div class="form-group frm-w">
+                                                            {{-- image --}}
                                                             <div class="media-form-w" id="mediaFormW">
+
+                                                            </div>
+                                                            {{-- video--}}
+                                                            <div id="video-container" style="margin: 20px 0;">
 
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <input type="file" id="upload-input" style="display: none">
+                                                    <input type="file" id="upload-input" style="display: none" data-post="">
+                                                    <input type="hidden" name="address" value="" id="video-field">
                                                     <div class="left-w-footer">
+                                                        <!-- Popup nhập link -->
+                                                        <div id="video-popup" style="display:none; position:absolute; bottom:75px;
+                                                        left:110px; background:#fff; padding:10px; border:1px solid #ccc; box-shadow:0 2px 8px rgba(0,0,0,0.2); z-index:1000;">
+                                                            <input type="text" id="youtube-url" placeholder="Nhập link YouTube" style="width: 250px;" />
+                                                            <button type="button" id="insert-video">Chèn</button>
+                                                            <button id="close-video-popup">Đóng</button>
+                                                        </div>
                                                         <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-file-image"></i></span>
                                                         <span data-toggle="tooltip" data-placement="top" title="Chèn link"><i class="fa fa-link"></i></span>
-                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>
+                                                        <span id="open-insert-video" data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>
                                                     </div>
                                                     <div class="center-w-footer">
                                                         <input type="hidden" name="user_post" value="{{\Illuminate\Support\Facades\Auth::id()}}">
@@ -562,6 +621,14 @@
                                                             </div>
                                                         </div>
                                                         @endif
+                                                        
+                                                       @if(!is_null($p->address))
+                                                        <div class="video-detail-w" style="margin: 20px 0">
+                                                            <iframe width="100%" height="400" src="https://www.youtube.com/embed/{{$p->address}}" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                        @endif
+
+
 
                                                         <div class="list-comment-post ">
 

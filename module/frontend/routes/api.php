@@ -25,3 +25,5 @@ Route::post('comment-post-group','ApiController@commentPost')->name('ajax-commen
 Route::post('like-comment-group','ApiController@likeComment')->name('ajax-comment-like-group');
 //change bank
 Route::post('get-bank-item','ApiController@getBankItem')->name('ajax-get-bank-item');
+//insert video
+Route::post('/insert-video', ['ApiController@insertVideo', 'ajax-insert-video']);

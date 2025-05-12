@@ -368,6 +368,11 @@ class ApiController extends BaseController
         }
     }
 
+    public function insertVideo(Request $request){
+
+    }
+
+
 }
 
 
