@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group frm-w-textarea">
                             <textarea name="econtent" rows="4" id="edit{{$p->id}}" placeholder="Hãy viết điều gì đó..."
-                                                              class="editor txt-w-title area-w">{!! $p->content !!}</textarea>
+                                                              class=" txt-w-title area-w">{!! $p->content !!}</textarea>
                             <span class="span_desc"></span>
                         </div>
                         <div class="form-group frm-w">

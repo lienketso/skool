@@ -1049,7 +1049,7 @@ input[type=file]::file-selector-button:hover {
     color: rgb(144, 144, 144);
 }
 .modal-write .modal-footer{
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 .left-w-footer span{
     color: rgb(144, 144, 144);
@@ -1819,7 +1819,6 @@ iframe .ytp-chrome-top{
     }
     .right-w-footer{
         text-align: right;
-        width: 60%;
     }
     .rbt-splash-feature-box .thumbnail{
         max-height: 235px;

@@ -1,15 +1,25 @@
 @extends('frontend::master')
+@section('css')
+
+@endsection
 @section('js')
     <script type="text/javascript" src="{{asset('admin/libs/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}" referrerpolicy="origin"></script>
 @endsection
 @section('js-init')
     <script type="text/javascript">
-        CKEDITOR.replace( 'editor1', {
-            filebrowserUploadUrl: '{{route('ckeditor.upload',['_token' => csrf_token() ])}}', //route dashboard/upload
-            filebrowserUploadMethod: 'form',
-            height: '300px',
-            removePlugins: "exportpdf",
+            tinymce.init({
+            selector: 'textarea', licenseKey: "gpl",
+            plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'lists', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            ],
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name'
         });
+
         $(function(){
             $('.editor').each(function(e){
                 CKEDITOR.replace( this.id, {
@@ -42,9 +52,8 @@
         $('.cm-'+id).toggle();
     });
     $('.btn-w-post').on('click',function (){
-        var editor = CKEDITOR.instances.editor1;
         let name = $('input[name="name"]').val();
-        let content = editor.getData();
+        let content = tinymce.get('textareaDefault').getContent();
         let category = $('input[name="category"]').val();
         let user_post = $('input[name="user_post"]').val();
         let group_id = {{$data->id}};
@@ -96,9 +105,9 @@
         let _this = $(e.currentTarget);
         let post = _this.attr('data-post');
         let postid ='edit'+post;
-        var editor = CKEDITOR.instances[postid];
         let name = $('input[name="ename"]').val();
-        let content = editor.getData();
+        let content = tinymce.get(postid).getContent();
+        // let content = editor.getData();
         let editcat = $('.ecat_'+post);
         let category = editcat.val();
         let url = "{{route('ajax.edit.post-group.get')}}";
@@ -396,7 +405,7 @@
                                                             <span class="span_name"></span>
                                                         </div>
                                                         <div class="form-group frm-w-textarea">
-                                                    <textarea name="content" rows="4" id="editor1" placeholder="Hãy viết điều gì đó..."
+                                                    <textarea name="content" rows="4" id="textareaDefault" placeholder="Hãy viết điều gì đó..."
                                                               class="txt-w-title area-w"></textarea>
                                                             <span class="span_desc"></span>
                                                         </div>
@@ -410,9 +419,9 @@
                                                 <div class="modal-footer">
                                                     <input type="file" id="upload-input" style="display: none">
                                                     <div class="left-w-footer">
-                                                        <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-paperclip"></i></span>
-{{--                                                        <span data-toggle="tooltip" data-placement="top" title="Ghim bài viết">Ghim lên đầu</span>--}}
-{{--                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>--}}
+                                                        <span data-toggle="tooltip" id="upload-button" data-placement="top" title="Thêm đính kèm"><i class="fa fa-file-image"></i></span>
+                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn link"><i class="fa fa-link"></i></span>
+                                                        <span data-toggle="tooltip" data-placement="top" title="Chèn video"><i class="fa fa-video"></i></span>
                                                     </div>
                                                     <div class="center-w-footer">
                                                         <input type="hidden" name="user_post" value="{{\Illuminate\Support\Facades\Auth::id()}}">
